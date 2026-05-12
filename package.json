@@ -1,0 +1,13 @@
+{
+  "name": "tuka",
+  "version": "1.0.0",
+  "description": "Tuka — adiciona o teu logo nas fotos dos produtos. Por Fiadumont.",
+  "private": true,
+  "scripts": {
+    "dev": "npx serve src",
+    "worker:dev": "cd worker && npm run dev",
+    "worker:deploy": "cd worker && npm run deploy"
+  },
+  "author": "Fiadumont",
+  "license": "UNLICENSED"
+}

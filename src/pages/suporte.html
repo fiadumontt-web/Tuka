@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Suporte — Tuka</title>
+  <link rel="stylesheet" href="/styles/variables.css">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Fraunces:wght@500;700&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font-sans);
+      max-width: 640px;
+      margin: 0 auto;
+      padding: 32px 20px 60px;
+      line-height: 1.7;
+      min-height: 100vh;
+    }
+    a { color: var(--orange); text-decoration: none; }
+    .back { display: inline-block; color: var(--text-muted); margin-bottom: 24px; font-size: 14px; }
+    .back:hover { color: var(--orange); }
+    h1 { font-family: var(--font-display); font-size: 32px; font-weight: 500; margin-bottom: 10px; }
+    .subtitle { color: var(--text-muted); margin-bottom: 32px; font-size: 15px; }
+    .card { background: var(--bg-elevated); border: 1px solid var(--border); border-radius: 14px; padding: 24px; margin-bottom: 16px; }
+    .card h2 { font-family: var(--font-display); font-size: 20px; font-weight: 500; margin-bottom: 8px; }
+    .card p { color: var(--text-muted); font-size: 14px; margin-bottom: 16px; }
+    .email-box {
+      display: flex; align-items: center; gap: 14px;
+      padding: 16px;
+      background: var(--bg-card); border: 1px solid var(--border);
+      border-radius: 12px; margin-bottom: 12px;
+    }
+    .email-box svg { flex-shrink: 0; color: var(--orange); }
+    .email-info { flex: 1; min-width: 0; }
+    .email-info .label { font-size: 11px; color: var(--text-faint); letter-spacing: 1px; text-transform: uppercase; margin-bottom: 2px; }
+    .email-info .value { font-size: 15px; font-weight: 500; color: var(--text); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .btn-primary {
+      display: flex; align-items: center; justify-content: center; gap: 10px;
+      width: 100%; background: var(--orange); color: var(--bg);
+      border: none; padding: 14px; border-radius: 10px;
+      font-size: 15px; font-weight: 500; font-family: inherit;
+      cursor: pointer; text-decoration: none;
+    }
+    .btn-secondary {
+      display: flex; align-items: center; justify-content: center; gap: 10px;
+      width: 100%; background: transparent; color: var(--text);
+      border: 1px solid var(--border-strong); padding: 12px; border-radius: 10px;
+      font-size: 14px; font-family: inherit; cursor: pointer; text-decoration: none; margin-top: 8px;
+    }
+    .btn-secondary:hover { border-color: var(--orange); color: var(--orange); }
+    .info-list { list-style: none; padding: 0; }
+    .info-list li { padding: 12px 0; border-bottom: 1px solid var(--border); font-size: 14px; color: var(--text-muted); display: flex; gap: 12px; align-items: flex-start; }
+    .info-list li:last-child { border-bottom: none; }
+    .info-list strong { color: var(--text); display: block; margin-bottom: 2px; font-weight: 500; }
+    .check {
+      width: 20px; height: 20px; border-radius: 50%;
+      background: var(--orange); color: var(--bg);
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0; margin-top: 2px; font-size: 12px;
+    }
+    .footer { margin-top: 40px; padding-top: 20px; border-top: 1px solid var(--border); text-align: center; font-size: 12px; color: var(--text-faint); }
+    .footer a { color: var(--text-faint); }
+  </style>
+</head>
+<body>
+
+  <a href="/" class="back">← Voltar à aplicação</a>
+  <h1>Suporte</h1>
+  <p class="subtitle">A nossa equipa está disponível para o ajudar.</p>
+
+  <div class="card">
+    <h2>Como entrar em contacto</h2>
+    <p>Para reportar um problema, enviar uma sugestão ou esclarecer qualquer dúvida, escreva-nos por correio electrónico.</p>
+
+    <div class="email-box">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+        <polyline points="22,6 12,13 2,6"/>
+      </svg>
+      <div class="email-info">
+        <div class="label">Correio electrónico</div>
+        <div class="value">contato@fiadumont.com</div>
+      </div>
+    </div>
+
+    <a class="btn-primary" href="mailto:contato@fiadumont.com?subject=Suporte%20Tuka">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+        <polyline points="22,6 12,13 2,6"/>
+      </svg>
+      Abrir aplicação de email
+    </a>
+
+    <a class="btn-secondary" href="/pages/ajuda.html">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+      Consultar a página de ajuda
+    </a>
+  </div>
+
+  <div class="card">
+    <h2>O que pode reportar</h2>
+    <ul class="info-list">
+      <li>
+        <span class="check">✓</span>
+        <div>
+          <strong>Problemas técnicos</strong>
+          Erros, lentidão, ficheiros que não abrem ou funcionalidades que não funcionam correctamente.
+        </div>
+      </li>
+      <li>
+        <span class="check">✓</span>
+        <div>
+          <strong>Sugestões de melhoria</strong>
+          Novas funcionalidades, alterações de design, melhorias na experiência de utilização.
+        </div>
+      </li>
+      <li>
+        <span class="check">✓</span>
+        <div>
+          <strong>Questões sobre privacidade</strong>
+          Dúvidas sobre o tratamento dos seus dados ou pedidos relacionados com privacidade.
+        </div>
+      </li>
+      <li>
+        <span class="check">✓</span>
+        <div>
+          <strong>Parcerias e oportunidades</strong>
+          Empresas ou criadores interessados em colaborar com o Tuka.
+        </div>
+      </li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h2>Tempo de resposta</h2>
+    <p style="margin-bottom:0">Respondemos em menos de 24 horas em dias úteis. Para questões urgentes, indique "URGENTE" no assunto da mensagem.</p>
+  </div>
+
+  <div class="footer">
+    © <a href="https://fiadumont.com/" target="_blank" rel="noopener">Fiadumont</a> 2026. Todos os direitos reservados.
+  </div>
+
+</body>
+</html>

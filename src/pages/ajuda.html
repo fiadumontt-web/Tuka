@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ajuda — Tuka</title>
+  <link rel="stylesheet" href="/styles/variables.css">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Fraunces:wght@500;700&display=swap" rel="stylesheet">
+  <style>
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{background:var(--bg);color:var(--text);font-family:var(--font-sans);font-size:15px;line-height:1.6;max-width:640px;margin:0 auto;padding:0 0 60px}
+    a{color:var(--orange);text-decoration:none}
+    .topbar{display:flex;align-items:center;gap:12px;padding:16px 20px;border-bottom:1px solid var(--border);position:sticky;top:0;background:var(--bg);z-index:10}
+    .topbar a{font-size:14px;color:var(--text-muted)}
+    .topbar h1{font-family:var(--font-display);font-size:20px;font-weight:500}
+    .hero{padding:28px 20px 0}
+    .hero h2{font-family:var(--font-display);font-size:32px;font-weight:500;line-height:1.2;margin-bottom:8px}
+    .hero p{color:var(--text-muted);font-size:15px}
+
+    /* Passos */
+    .steps{padding:28px 20px 0}
+    .steps h3{font-family:var(--font-display);font-size:20px;font-weight:500;margin-bottom:16px;color:var(--orange)}
+    .step-card{background:var(--bg-elevated);border-radius:14px;overflow:hidden;margin-bottom:16px;border:1px solid var(--border)}
+    .step-card-header{display:flex;align-items:center;gap:14px;padding:16px 18px}
+    .step-num{width:36px;height:36px;border-radius:50%;background:var(--orange);color:var(--bg);font-weight:700;font-size:15px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+    .step-info h4{font-size:16px;font-weight:500;margin-bottom:2px}
+    .step-info p{font-size:13px;color:var(--text-muted);line-height:1.5}
+    .step-visual{background:var(--bg-card);padding:16px 18px;border-top:1px solid var(--border)}
+
+    /* Mockup visual de cada ecrã */
+    .mockup{background:#0d0a08;border-radius:10px;padding:14px;position:relative;overflow:hidden}
+    .mockup-label{font-size:11px;color:#a8a39a;letter-spacing:1px;text-transform:uppercase;margin-bottom:10px}
+    .mock-dropzone{border:2px dashed #4a3f35;border-radius:10px;padding:20px;text-align:center;background:#15110d}
+    .mock-dropzone .icon{width:40px;height:40px;background:#ff8c42;border-radius:10px;margin:0 auto 8px;display:flex;align-items:center;justify-content:center}
+    .mock-dropzone p{font-size:13px;color:#faf6f0;font-weight:500;margin-bottom:2px}
+    .mock-dropzone small{font-size:11px;color:#a8a39a}
+    .mock-photos{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-top:10px}
+    .mock-photo{aspect-ratio:1;background:#3d2818;border-radius:6px}
+    .mock-btn{background:#ff8c42;color:#0d0a08;border:none;padding:12px;border-radius:8px;font-weight:500;font-size:13px;width:100%;margin-top:12px;font-family:inherit;cursor:default}
+    .mock-tabs{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:12px}
+    .mock-tab{padding:10px;border-radius:7px;font-size:12px;text-align:center;background:#15110d;color:#a8a39a;border:1px solid #2a221c}
+    .mock-tab.active{background:#ff8c42;color:#0d0a08;font-weight:500;border-color:#ff8c42}
+    .mock-logo-row{display:flex;align-items:center;gap:10px;background:#15110d;padding:10px;border-radius:8px;margin-bottom:8px}
+    .mock-logo-box{width:44px;height:44px;background:#faf6f0;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:10px;color:#0d0a08;font-weight:700;flex-shrink:0}
+    .mock-logo-info{flex:1}
+    .mock-logo-info p{font-size:12px;color:#faf6f0;margin-bottom:2px}
+    .mock-logo-info small{font-size:10px;color:#a8a39a}
+    .mock-photo-big{aspect-ratio:4/3;background:linear-gradient(135deg,#3d2818,#5c3a25);border-radius:8px;margin-bottom:8px;position:relative;overflow:hidden;display:flex;align-items:flex-end;justify-content:flex-end;padding:8px}
+    .mock-logo-overlay{background:rgba(250,246,240,0.95);padding:6px 10px;border-radius:6px;font-size:11px;font-weight:700;color:#0d0a08;border:2px dashed #ff8c42}
+    .mock-progress{background:#15110d;border-radius:8px;padding:16px;text-align:center}
+    .mock-progress p{font-size:13px;color:#faf6f0;margin-bottom:8px}
+    .mock-bar{background:#2a1f15;height:6px;border-radius:3px;overflow:hidden;margin-bottom:4px}
+    .mock-bar-fill{background:#ff8c42;height:100%;width:65%;border-radius:3px}
+    .mock-bar-text{font-size:11px;color:#a8a39a}
+    .mock-results{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-bottom:10px}
+    .mock-result{aspect-ratio:1;background:#3d2818;border-radius:6px}
+    .arrow-hint{display:flex;align-items:center;gap:6px;margin-top:8px;font-size:12px;color:#ff8c42}
+    .arrow-hint svg{flex-shrink:0}
+
+    /* FAQ */
+    .faq{padding:28px 20px 0}
+    .faq h3{font-family:var(--font-display);font-size:20px;font-weight:500;margin-bottom:16px;color:var(--orange)}
+    details.faq-item{background:var(--bg-elevated);border-radius:12px;border:1px solid var(--border);margin-bottom:10px;overflow:hidden}
+    details.faq-item summary{padding:16px 18px;cursor:pointer;font-size:15px;font-weight:500;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:12px}
+    details.faq-item summary::-webkit-details-marker{display:none}
+    details.faq-item summary::after{content:'+';color:var(--orange);font-size:20px;line-height:1;flex-shrink:0;transition:transform 200ms ease}
+    details.faq-item[open] summary::after{content:'−'}
+    .faq-body{padding:0 18px 16px;font-size:14px;color:var(--text-muted);line-height:1.7;border-top:1px solid var(--border)}
+    .faq-body strong{color:var(--text)}
+    .faq-body p{margin-top:12px}
+    .faq-body p:first-child{margin-top:12px}
+
+    .contact-box{margin:28px 20px 0;background:var(--bg-elevated);border-radius:14px;padding:20px;border:1px solid var(--border)}
+    .contact-box h3{font-family:var(--font-display);font-size:18px;font-weight:500;margin-bottom:6px}
+    .contact-box p{font-size:14px;color:var(--text-muted);margin-bottom:14px}
+    .contact-btn{display:inline-flex;align-items:center;gap:8px;background:var(--orange);color:var(--bg);padding:11px 20px;border-radius:9px;font-weight:500;font-size:14px}
+  </style>
+</head>
+<body>
+
+<div class="topbar">
+  <a href="/">← Voltar</a>
+  <h1>Ajuda</h1>
+</div>
+
+<div class="hero">
+  <h2>Como usar o Tuka</h2>
+  <p>Tudo o que precisas de saber para marcar as tuas fotos.</p>
+</div>
+
+<div class="steps">
+  <h3>Guia passo a passo</h3>
+
+  <div class="step-card">
+    <div class="step-card-header">
+      <div class="step-num">1</div>
+      <div class="step-info">
+        <h4>Adicionar fotos</h4>
+        <p>Toca na zona laranja e escolhe até 20 fotos dos teus produtos.</p>
+      </div>
+    </div>
+    <div class="step-visual">
+      <div class="mockup">
+        <div class="mockup-label">Ecrã 1 — as tuas fotos</div>
+        <div class="mock-dropzone">
+          <div class="icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#0d0a08" stroke-width="2.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/></svg>
+          </div>
+          <p>Toca para escolher</p>
+          <small>JPG, PNG · até 25MB cada</small>
+        </div>
+        <div class="mock-photos">
+          <div class="mock-photo"></div>
+          <div class="mock-photo" style="opacity:.7"></div>
+          <div class="mock-photo" style="opacity:.5"></div>
+        </div>
+        <button class="mock-btn">Continuar →</button>
+        <div class="arrow-hint">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
+          As fotos aparecem em miniaturas. Toca no ✕ para remover alguma.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="step-card">
+    <div class="step-card-header">
+      <div class="step-num">2</div>
+      <div class="step-info">
+        <h4>Adicionar o logo</h4>
+        <p>Escolhe o logo da empresa em imagem ou escreve o nome.</p>
+      </div>
+    </div>
+    <div class="step-visual">
+      <div class="mockup">
+        <div class="mockup-label">Ecrã 2 — o teu logo</div>
+        <div class="mock-tabs">
+          <div class="mock-tab active">Logo (imagem)</div>
+          <div class="mock-tab">Nome (texto)</div>
+        </div>
+        <div class="mock-logo-row">
+          <div class="mock-logo-box">LOGO</div>
+          <div class="mock-logo-info">
+            <p>logo-empresa.png</p>
+            <small>Pronto para usar</small>
+          </div>
+        </div>
+        <div style="background:#ff8c421a;border:1px solid #ff8c42;border-radius:8px;padding:10px;font-size:12px;color:#ff8c42;display:flex;align-items:center;gap:8px">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          Remover fundo do logo (3× por dia)
+        </div>
+        <div class="arrow-hint" style="margin-top:10px">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
+          Podes escolher o formato: original, quadrado ou redondo.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="step-card">
+    <div class="step-card-header">
+      <div class="step-num">3</div>
+      <div class="step-info">
+        <h4>Posicionar o logo</h4>
+        <p>Arrasta com um dedo · Dois dedos para o tamanho.</p>
+      </div>
+    </div>
+    <div class="step-visual">
+      <div class="mockup">
+        <div class="mockup-label">Ecrã 3 — posição do logo</div>
+        <div class="mock-photo-big">
+          <div class="mock-logo-overlay">LOGO</div>
+        </div>
+        <div class="arrow-hint">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
+          Abre "Posição diferente por foto" para personalizar cada foto individualmente.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="step-card">
+    <div class="step-card-header">
+      <div class="step-num">4</div>
+      <div class="step-info">
+        <h4>Processar</h4>
+        <p>O app aplica o logo em todas as fotos automaticamente.</p>
+      </div>
+    </div>
+    <div class="step-visual">
+      <div class="mockup">
+        <div class="mockup-label">Ecrã 4 — a processar</div>
+        <div class="mock-progress">
+          <p>A processar foto 2 de 5</p>
+          <div class="mock-bar"><div class="mock-bar-fill"></div></div>
+          <div class="mock-bar-text">65%</div>
+        </div>
+        <div class="arrow-hint" style="margin-top:10px">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
+          Não feches o browser enquanto o app trabalha.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="step-card">
+    <div class="step-card-header">
+      <div class="step-num">5</div>
+      <div class="step-info">
+        <h4>Baixar</h4>
+        <p>Toca num botão e todas as fotos ficam no teu telefone.</p>
+      </div>
+    </div>
+    <div class="step-visual">
+      <div class="mockup">
+        <div class="mockup-label">Ecrã 5 — baixar</div>
+        <div class="mock-results">
+          <div class="mock-result"></div>
+          <div class="mock-result" style="opacity:.8"></div>
+          <div class="mock-result" style="opacity:.6"></div>
+        </div>
+        <button class="mock-btn">Baixar 3 fotos</button>
+        <div class="arrow-hint" style="margin-top:10px">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
+          No iPhone: toca e segura em cada imagem → Guardar imagem.
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="faq">
+  <h3>Perguntas frequentes</h3>
+
+  <details class="faq-item">
+    <summary>O app é grátis?</summary>
+    <div class="faq-body">
+      <p>Sim, completamente grátis. Podes usar até 20 fotos por sessão e remover o fundo do logo até 3 vezes por dia. Não precisas de criar conta nem introduzir cartão de crédito.</p>
+    </div>
+  </details>
+
+  <details class="faq-item">
+    <summary>A remoção de fundo não está a funcionar</summary>
+    <div class="faq-body">
+      <p>Isto acontece quando o servidor está ocupado ou a tua internet está instável. Tenta de novo em 30 segundos. Se persistir, verifica se já usaste as 3 vezes de hoje — o contador aparece mesmo por baixo do botão.</p>
+      <p><strong>Dica:</strong> Se o teu logo já está em PNG com fundo transparente, não precisas de usar a remoção.</p>
+    </div>
+  </details>
+
+  <details class="faq-item">
+    <summary>Como guardo as fotos no iPhone?</summary>
+    <div class="faq-body">
+      <p>O iPhone não permite guardar automaticamente. Quando tocares em "Baixar fotos", cada imagem vai abrir num ecrã separado. <strong>Toca e segura</strong> na imagem e escolhe <strong>Guardar imagem</strong>. Vai para a tua Galeria de Fotos.</p>
+    </div>
+  </details>
+
+  <details class="faq-item">
+    <summary>Posso ter posições diferentes em cada foto?</summary>
+    <div class="faq-body">
+      <p>Sim. No passo 3, toca em <strong>"Posição diferente por foto"</strong> para abrir o painel avançado. Toca numa foto para a seleccionar — o ponto laranja indica que tem posição própria. Arrasta o logo para onde quiseres. Para voltar ao modo geral, toca em "← Editar todas".</p>
+    </div>
+  </details>
+
+  <details class="faq-item">
+    <summary>Que formatos de foto são suportados?</summary>
+    <div class="faq-body">
+      <p>JPG e PNG, até 25MB cada. As fotos saem no mesmo formato em que entraram — JPG sai como JPG, PNG sai como PNG. A qualidade de saída é de 95%.</p>
+    </div>
+  </details>
+
+  <details class="faq-item">
+    <summary>Posso instalar o Tuka como aplicação no meu telemóvel?</summary>
+    <div class="faq-body">
+      <p>De momento, o Tuka está disponível apenas como site. A versão para instalar directamente no telemóvel estará disponível em breve. Poderá encontrá-la na Google Play Store quando for lançada.</p>
+      <p>Enquanto isso, pode abrir o Tuka no browser do seu telemóvel e utilizá-lo como qualquer outro site.</p>
+    </div>
+  </details>
+
+  <details class="faq-item">
+    <summary>As minhas fotos ficam guardadas em algum lado?</summary>
+    <div class="faq-body">
+      <p>Não. As tuas fotos de produtos nunca saem do teu dispositivo. Só o logo passa pelo servidor (para a remoção de fundo) e é apagado imediatamente após o processamento. Consulta a nossa <a href="/pages/privacidade.html">Política de Privacidade</a> para mais detalhes.</p>
+    </div>
+  </details>
+
+  <details class="faq-item">
+    <summary>O app funciona sem internet?</summary>
+    <div class="faq-body">
+      <p>Sim, depois da primeira utilização. Podes adicionar fotos, colocar o logo e baixar tudo sem internet. A única função que precisa de ligação é a remoção de fundo do logo.</p>
+    </div>
+  </details>
+</div>
+
+<div class="contact-box">
+  <h3>Precisa de mais ajuda?</h3>
+  <p>A nossa equipa responde em menos de 24 horas.</p>
+  <a class="contact-btn" href="mailto:contato@fiadumont.com">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+    contato@fiadumont.com
+  </a>
+</div>
+
+<div style="text-align:center;padding:24px 20px;font-size:12px;color:var(--text-faint);border-top:1px solid var(--border);margin-top:32px">
+  © <a href="https://fiadumont.com/" target="_blank" rel="noopener" style="color:var(--text-faint)">Fiadumont</a> 2026. Todos os direitos reservados.
+</div>
+
+</body>
+</html>

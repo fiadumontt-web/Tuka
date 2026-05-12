@@ -1,0 +1,13 @@
+name = "tuka-api"
+main = "src/index.js"
+compatibility_date = "2024-09-01"
+
+# A chave HF_TOKEN é guardada como secret (não está aqui)
+# Para configurar:
+#   wrangler secret put HF_TOKEN
+
+[observability]
+enabled = true
+
+[limits]
+cpu_ms = 30000

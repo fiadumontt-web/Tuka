@@ -1,0 +1,66 @@
+:root {
+  /* Cores — tema escuro (por defeito) */
+  --bg: #0d0a08;
+  --bg-elevated: #15110d;
+  --bg-card: #1a1410;
+  --bg-input: #221a14;
+
+  --orange: #ff8c42;
+  --orange-dark: #e55a1f;
+  --orange-soft: rgba(255, 140, 66, 0.15);
+
+  --text: #faf6f0;
+  --text-muted: #a8a39a;
+  --text-faint: #8a857c;
+
+  --border: #2a221c;
+  --border-strong: #4a3f35;
+
+  --success: #4ade80;
+  --warning: #facc15;
+  --danger: #ef4444;
+
+  /* Tipografia */
+  --font-sans: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-display: 'Fraunces', Georgia, serif;
+
+  /* Espaçamento */
+  --space-xs: 4px;
+  --space-sm: 8px;
+  --space-md: 12px;
+  --space-lg: 16px;
+  --space-xl: 24px;
+  --space-2xl: 32px;
+
+  /* Bordas */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-pill: 999px;
+
+  /* Sombra */
+  --shadow-card: 0 4px 24px rgba(0, 0, 0, 0.3);
+
+  /* Transições */
+  --ease: cubic-bezier(0.4, 0, 0.2, 1);
+  --duration: 200ms;
+
+  /* Tiles de cor — tamanho fixo para mobile */
+  --color-tile-size: 40px;
+  --bg-tile-size: 48px;
+}
+
+/* Tema claro */
+[data-theme="light"] {
+  --bg: #faf6f0;
+  --bg-elevated: #ffffff;
+  --bg-card: #ffffff;
+  --bg-input: #f0ebe2;
+
+  --text: #1a1410;
+  --text-muted: #6b6359;
+  --text-faint: #948b80;
+
+  --border: #e5dfd3;
+  --border-strong: #cdc4b3;
+}

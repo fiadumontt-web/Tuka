@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="theme-color" content="#0d0a08">
+  <meta name="description" content="Tuka — coloque o logótipo da sua empresa nas fotografias dos seus produtos em segundos.">
+  <title>Tuka — Marque as suas fotografias</title>
+  <link rel="manifest" href="/manifest.json">
+  <link rel="icon" type="image/svg+xml" href="/images/logo-tuka.svg">
+  <link rel="apple-touch-icon" href="/icons/icon-192.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Fraunces:wght@500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/styles/variables.css">
+  <link rel="stylesheet" href="/styles/main.css">
+</head>
+<body>
+
+  <header class="app-header">
+    <div class="brand">
+      <div class="brand-icon">
+        <svg viewBox="0 0 512 512" width="36" height="36"><rect width="512" height="512" rx="112" fill="#1a1410"/><path d="M 128 152 L 384 152 L 384 208 L 296 208 L 296 384 L 216 384 L 216 208 L 128 208 Z" fill="#faf6f0"/><circle cx="384" cy="384" r="44" fill="#ff8c42"/></svg>
+      </div>
+      <div class="brand-text"><h1>Tuka</h1><span>by Fiadumont</span></div>
+    </div>
+    <nav class="header-nav">
+      <button id="btn-help" aria-label="Ajuda">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+      </button>
+      <button id="btn-theme" aria-label="Tema">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      </button>
+    </nav>
+  </header>
+
+  <div class="step-bar"><div class="step-bar-inner" id="step-bar-inner"></div></div>
+
+  <main class="app-main">
+
+    <!-- Passo 1 -->
+    <section class="screen" id="screen-photos" data-step="1">
+      <div class="screen-header">
+        <span class="step-label">Passo 1 de 5</span>
+        <h2>Adicione as fotografias</h2>
+        <p>Seleccione até 20 fotografias dos seus produtos</p>
+      </div>
+      <label for="input-photos" class="dropzone" id="dropzone">
+        <div class="dropzone-icon">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/></svg>
+        </div>
+        <div class="dropzone-title">Toque para seleccionar</div>
+        <div class="dropzone-hint">JPG e PNG até 10 MB cada</div>
+        <input type="file" id="input-photos" accept="image/jpeg,image/png" multiple hidden>
+      </label>
+      <div class="counter" id="photos-counter">0 de 20 fotografias carregadas</div>
+      <div class="photos-grid" id="photos-grid"></div>
+      <div class="screen-actions">
+        <button class="btn-primary" id="btn-photos-next" disabled>Continuar →</button>
+      </div>
+    </section>
+
+    <!-- Passo 2 -->
+    <section class="screen" id="screen-logo" data-step="2" hidden>
+      <div class="screen-header">
+        <span class="step-label">Passo 2 de 5</span>
+        <h2>Coloque o logótipo</h2>
+        <p>Logótipo em imagem ou o nome da empresa em texto</p>
+      </div>
+      <div class="tab-switch">
+        <button class="tab-btn active" data-tab="image">Logótipo (imagem)</button>
+        <button class="tab-btn" data-tab="text">Nome (texto)</button>
+      </div>
+
+      <!-- Aba imagem -->
+      <div class="tab-panel" id="tab-image">
+        <label for="input-logo" class="logo-upload" id="logo-upload">
+          <div class="logo-upload-empty">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+            <span>Toque para seleccionar o logótipo</span>
+          </div>
+          <input type="file" id="input-logo" accept="image/*" hidden>
+        </label>
+        <div class="logo-controls" id="logo-controls" hidden>
+          <div class="logo-preview-row">
+            <div class="logo-preview-box"><img id="logo-preview-img" alt="Logótipo"></div>
+            <div class="logo-info">
+              <div class="logo-filename" id="logo-filename">logo.png</div>
+              <button class="btn-link" id="btn-change-logo">Alterar</button>
+            </div>
+          </div>
+
+          <!-- Formato — mockups CSS limpos -->
+          <div class="form-group" style="margin-top:18px">
+            <label>Formato do logótipo</label>
+            <div class="format-btns">
+              <button class="format-btn active" data-format="original" type="button">
+                <div class="format-shape original"></div>
+                <span>Original</span>
+              </button>
+              <button class="format-btn" data-format="square" type="button">
+                <div class="format-shape square"></div>
+                <span>Quadrado</span>
+              </button>
+              <button class="format-btn" data-format="circle" type="button">
+                <div class="format-shape circle"></div>
+                <span>Redondo</span>
+              </button>
+            </div>
+          </div>
+
+          <button class="btn-secondary btn-bg-remove" id="btn-remove-bg" style="margin-top:16px">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            Remover fundo do logótipo
+          </button>
+          <div class="limit-counter" id="bg-limit">3 utilizações disponíveis hoje</div>
+          <div class="info-tip"><strong>Nota:</strong> Se o logótipo já está em PNG sem fundo, pode pular este passo.</div>
+        </div>
+      </div>
+
+      <!-- Aba texto -->
+      <div class="tab-panel" id="tab-text" hidden>
+        <input type="text" class="text-input" id="input-text" placeholder="Nome da empresa" maxlength="40">
+
+        <div class="form-group">
+          <label>Tipo de letra</label>
+          <select id="text-font" class="form-select" style="margin-bottom:0">
+            <option value="DM Sans">DM Sans</option>
+            <option value="Fraunces">Fraunces</option>
+            <option value="Georgia">Georgia</option>
+            <option value="Arial">Arial</option>
+            <option value="monospace">Monospace</option>
+          </select>
+        </div>
+
+        <!-- Cor do texto — paleta visual de 12 cores -->
+        <div class="form-group">
+          <label>Cor do texto</label>
+          <div class="color-palette" id="color-palette">
+            <button type="button" class="color-tile white-tile active" data-color="#ffffff" title="Branco" style="background:#ffffff"></button>
+            <button type="button" class="color-tile" data-color="#000000" title="Preto" style="background:#000000"></button>
+            <button type="button" class="color-tile" data-color="#ff8c42" title="Laranja" style="background:#ff8c42"></button>
+            <button type="button" class="color-tile" data-color="#ff3b30" title="Vermelho" style="background:#ff3b30"></button>
+            <button type="button" class="color-tile" data-color="#ffd60a" title="Amarelo" style="background:#ffd60a"></button>
+            <button type="button" class="color-tile" data-color="#30d158" title="Verde" style="background:#30d158"></button>
+            <button type="button" class="color-tile" data-color="#0a84ff" title="Azul" style="background:#0a84ff"></button>
+            <button type="button" class="color-tile" data-color="#bf5af2" title="Roxo" style="background:#bf5af2"></button>
+            <button type="button" class="color-tile" data-color="#ff6b9d" title="Rosa" style="background:#ff6b9d"></button>
+            <button type="button" class="color-tile" data-color="#8b4513" title="Castanho" style="background:#8b4513"></button>
+            <button type="button" class="color-tile" data-color="#708090" title="Cinzento" style="background:#708090"></button>
+            <button type="button" class="color-tile" data-color="#00ced1" title="Turquesa" style="background:#00ced1"></button>
+          </div>
+        </div>
+
+        <!-- Fundo atrás do texto -->
+        <div class="form-group">
+          <div class="toggle-row">
+            <label>Fundo atrás do texto</label>
+            <label class="toggle-switch">
+              <input type="checkbox" id="text-bg-enabled">
+              <span class="toggle-slider"></span>
+            </label>
+          </div>
+          <div id="text-bg-options" hidden style="margin-top:12px">
+            <label style="font-size:12px;color:var(--text-muted);display:block;margin-bottom:6px">Cor do fundo</label>
+            <div class="bg-palette" id="bg-palette">
+              <button type="button" class="bg-tile active" data-color="#000000" style="background:#000000;color:#ffffff" title="Preto">A</button>
+              <button type="button" class="bg-tile" data-color="#ffffff" style="background:#ffffff;color:#000000;outline:1px solid var(--border-strong)" title="Branco">A</button>
+              <button type="button" class="bg-tile" data-color="#1a1410" style="background:#1a1410;color:#ff8c42" title="Castanho escuro">A</button>
+              <button type="button" class="bg-tile" data-color="#ff8c42" style="background:#ff8c42;color:#ffffff" title="Laranja">A</button>
+            </div>
+            <div class="row-controls" style="margin-top:14px">
+              <label>Opacidade</label>
+              <input type="range" id="text-bg-opacity" min="10" max="100" value="70">
+              <span id="text-bg-opacity-val">70%</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="screen-actions">
+        <button class="btn-ghost" id="btn-logo-back">← Voltar</button>
+        <button class="btn-primary" id="btn-logo-next" disabled>Continuar →</button>
+      </div>
+    </section>
+
+    <!-- Passo 3 -->
+    <section class="screen" id="screen-position" data-step="3" hidden>
+      <div class="screen-header">
+        <span class="step-label">Passo 3 de 5</span>
+        <h2>Posicione o logótipo</h2>
+        <p>Arraste para mover · Dois dedos para redimensionar · Prima dois segundos para rodar</p>
+      </div>
+      <div class="canvas-wrap">
+        <canvas id="position-canvas"></canvas>
+        <div class="canvas-counter" id="canvas-counter">Fotografia 1 de 1</div>
+      </div>
+      <div class="thumbs-strip" id="thumbs-strip"></div>
+
+      <details class="advanced-panel">
+        <summary>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+          Posição diferente por fotografia
+        </summary>
+        <div class="advanced-content">
+          <div class="mode-indicator" id="mode-indicator">
+            <span class="mode-dot" id="mode-dot"></span>
+            <span id="mode-label">A editar todas as fotografias</span>
+          </div>
+          <p class="hint">Seleccione uma fotografia para lhe definir uma posição exclusiva. O ponto laranja indica que tem posição própria. Para voltar ao modo geral, prima "Editar todas".</p>
+          <div class="advanced-grid" id="advanced-grid"></div>
+          <button class="btn-link" id="btn-edit-all" style="width:100%;text-align:center;margin-bottom:12px">← Editar todas</button>
+          <div class="row-controls">
+            <label>Tamanho</label>
+            <input type="range" id="size-range" min="5" max="60" value="20">
+            <span id="size-value">20%</span>
+          </div>
+          <div class="row-controls">
+            <label>Opacidade</label>
+            <input type="range" id="opacity-range" min="20" max="100" value="100">
+            <span id="opacity-value">100%</span>
+          </div>
+        </div>
+      </details>
+
+      <div class="info-tip-small">A mesma posição aplica-se a todas as fotografias. Utilize o painel acima para configurar cada uma individualmente.</div>
+
+      <div class="screen-actions">
+        <button class="btn-ghost" id="btn-position-back">← Voltar</button>
+        <button class="btn-primary" id="btn-position-next">Gerar fotografias →</button>
+      </div>
+    </section>
+
+    <!-- Passo 4 -->
+    <section class="screen" id="screen-processing" data-step="4" hidden>
+      <div class="screen-header">
+        <span class="step-label">Passo 4 de 5</span>
+        <h2>A processar</h2>
+        <p>Aguarde alguns momentos</p>
+      </div>
+      <div class="processing-card">
+        <div class="processing-thumb" id="processing-thumb"></div>
+        <div class="processing-label">A processar fotografia</div>
+        <div class="processing-count" id="processing-count">0 de 0</div>
+        <div class="progress-bar"><div class="progress-fill" id="progress-fill"></div></div>
+        <div class="progress-percent" id="progress-percent">0%</div>
+      </div>
+      <div class="dots-row" id="dots-row"></div>
+      <div class="info-tip-small">Não feche esta janela enquanto o processamento decorre</div>
+    </section>
+
+    <!-- Passo 5 -->
+    <section class="screen" id="screen-download" data-step="5" hidden>
+      <div class="screen-header center">
+        <div class="success-icon">
+          <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+        </div>
+        <span class="step-label">Passo 5 de 5</span>
+        <h2>Concluído!</h2>
+        <p id="success-count">0 fotografias prontas</p>
+      </div>
+      <div class="result-grid" id="result-grid"></div>
+      <div class="download-section">
+        <button class="btn-primary btn-large" id="btn-download-all">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          <span id="btn-download-label">Transferir fotografias</span>
+        </button>
+        <div class="download-progress" id="download-progress" hidden>
+          <div class="progress-bar"><div class="progress-fill" id="dl-progress-fill"></div></div>
+          <div class="progress-percent" id="dl-progress-text">A preparar...</div>
+        </div>
+      </div>
+      <div class="screen-actions" style="margin-top:8px">
+        <button class="btn-ghost" id="btn-restart">Marcar mais fotografias</button>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="app-footer">
+    <a href="/pages/privacidade.html">Privacidade</a>
+    <span>·</span>
+    <a href="/pages/ajuda.html">Ajuda</a>
+    <span>·</span>
+    <a href="/pages/suporte.html">Suporte</a>
+    <span>·</span>
+    <a href="https://fiadumont.com/" target="_blank" rel="noopener">© Fiadumont 2026</a>
+  </footer>
+
+  <!-- Botão de suporte = link directo para a página de suporte -->
+  <a class="support-fab" href="/pages/suporte.html" title="Suporte" aria-label="Suporte">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+  </a>
+
+  <div class="toast" id="toast" hidden></div>
+
+  <script src="/scripts/limits.js"></script>
+  <script src="/scripts/api.js"></script>
+  <script src="/scripts/photos.js"></script>
+  <script src="/scripts/logo.js"></script>
+  <script src="/scripts/canvas.js"></script>
+  <script src="/scripts/export.js"></script>
+  <script src="/scripts/tour.js"></script>
+  <script src="/scripts/app.js"></script>
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => navigator.serviceWorker.register('/sw.js').catch(() => {}));
+    }
+  </script>
+</body>
+</html>
