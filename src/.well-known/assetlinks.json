@@ -2,9 +2,9 @@
   "relation": ["delegate_permission/common.handle_all_urls"],
   "target": {
     "namespace": "android_app",
-    "package_name": "SUBSTITUI_PELO_TEU_PACKAGE_NAME",
+    "package_name": "com.fiadumont.tuka",
     "sha256_cert_fingerprints": [
-      "SUBSTITUI_PELO_TEU_SHA256_DO_KEYSTORE"
+      "3E:8C:23:3E:D6:7C:A6:77:CE:84:6F:E3:52:0C:28:9D:1D:7B:52:92:74:72:00:5A:DE:83:CD:E0:61:6B:78:15"
     ]
   }
 }]
