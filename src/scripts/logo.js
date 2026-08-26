@@ -57,6 +57,18 @@ function initLogo() {
   btnChangeLogo.addEventListener('click', e => { e.preventDefault(); inputLogo.click(); });
 
   // Remoção de fundo — com feedback de progresso e retry no lado cliente
+  // Nota discreta por baixo do botão — só aparece se a remoção demorar.
+  let bgNote = document.getElementById('bg-note');
+  if (!bgNote) {
+    bgNote = document.createElement('div');
+    bgNote.id = 'bg-note';
+    bgNote.className = 'limit-counter';
+    bgNote.style.marginTop = '8px';
+    bgNote.hidden = true;
+    bgNote.textContent = 'A primeira vez pode demorar, pois o modelo é descarregado uma única vez. Se estiver muito lento, verifique a sua ligação à internet.';
+    btnRemoveBg.insertAdjacentElement('afterend', bgNote);
+  }
+
   btnRemoveBg.addEventListener('click', async () => {
     if (!state.logo.image) return;
     if (getRemainingUses() <= 0) { showToast('Limite diário atingido. Volte amanhã.', true); return; }
@@ -65,7 +77,7 @@ function initLogo() {
 
     // Mostrar progresso ao utilizador enquanto espera
     const messages = [
-      'A remover fundo...',
+      'A remover o fundo...',
       'Ainda a processar...',
       'Quase pronto...'
     ];
@@ -77,9 +89,18 @@ function initLogo() {
       btnRemoveBg.innerHTML = '<span>' + messages[msgIndex] + '</span>';
     }, 10000);
 
+    // Se passar dos 12 segundos, mostrar a nota de transparência.
+    const noteTimeout = setTimeout(() => { bgNote.hidden = false; }, 12000);
+
+    function cleanup() {
+      clearInterval(msgInterval);
+      clearTimeout(noteTimeout);
+      bgNote.hidden = true;
+    }
+
     try {
       const result = await removeBgFromLogo(state.logo.image.file);
-      clearInterval(msgInterval);
+      cleanup();
       const newUrl = URL.createObjectURL(result);
       URL.revokeObjectURL(state.logo.image.url);
       state.logo.image = { file: result, url: newUrl, name: state.logo.image.name, hasBgRemoved: true };
@@ -91,9 +112,9 @@ function initLogo() {
       btnRemoveBg.style.background = 'var(--success)';
       btnRemoveBg.style.color = 'var(--bg)';
     } catch (err) {
-      clearInterval(msgInterval);
+      cleanup();
       console.error('remove-bg:', err);
-      showToast('Não foi possível remover o fundo. Verifica a tua ligação e tenta novamente.', true);
+      showToast('Não foi possível remover o fundo. Verifique a sua ligação e tente novamente.', true);
       btnRemoveBg.disabled = false;
       btnRemoveBg.style.background = '';
       btnRemoveBg.style.color = '';
