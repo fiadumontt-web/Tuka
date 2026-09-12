@@ -6,8 +6,8 @@
   <meta name="theme-color" content="#0d0a08">
     <style>html{background:#0d0a08}html[data-theme=light]{background:#faf6f0}</style>
   <script>document.documentElement.dataset.theme=localStorage.getItem('tuka-theme')||'dark'</script>
-  <meta name="description" content="Tuka — coloque o logótipo da sua empresa nas fotografias dos seus produtos em segundos.">
-  <title>Tuka — Marque as suas fotografias</title>
+  <meta name="description" content="Tuka — coloque o logótipo da sua empresa nas fotos dos seus produtos em segundos.">
+  <title>Tuka — Marque as suas fotos</title>
   <link rel="manifest" href="/manifest.json">
   <link rel="icon" type="image/svg+xml" href="/images/logo-tuka.svg">
   <link rel="apple-touch-icon" href="/icons/icon-192.png">
@@ -108,17 +108,10 @@
 
     <!-- Passo 1 -->
     <section class="screen" id="screen-photos" data-step="1">
-      <div id="session-banner" class="session-banner" hidden>
-        <div class="sb-text">Tens um trabalho por terminar <span id="sb-count"></span></div>
-        <div class="sb-actions">
-          <button class="btn-primary" id="sb-continue">Continuar</button>
-          <button class="btn-ghost" id="sb-discard">Começar de novo</button>
-        </div>
-      </div>
       <div class="screen-header">
         <span class="step-label">Passo 1 de 5</span>
-        <h2>Adicione as fotografias</h2>
-        <p>Seleccione até 20 fotografias dos seus produtos</p>
+        <h2>Adicione as fotos</h2>
+        <p>Seleccione até 20 fotos dos seus produtos</p>
       </div>
       <label for="input-photos" class="dropzone" id="dropzone">
         <div class="dropzone-icon">
@@ -128,7 +121,7 @@
         <div class="dropzone-hint">JPG e PNG até 10 MB cada</div>
         <input type="file" id="input-photos" accept="image/jpeg,image/png" multiple hidden>
       </label>
-      <div class="counter" id="photos-counter">0 de 20 fotografias carregadas</div>
+      <div class="counter" id="photos-counter">0 de 20 fotos carregadas</div>
       <div class="photos-grid" id="photos-grid"></div>
       <div class="screen-actions">
         <button class="btn-primary" id="btn-photos-next" disabled>Continuar →</button>
@@ -277,13 +270,13 @@
       </div>
       <div class="canvas-wrap">
         <canvas id="position-canvas"></canvas>
-        <div class="canvas-counter" id="canvas-counter">Fotografia 1 de 1</div>
+        <div class="canvas-counter" id="canvas-counter">Foto 1 de 1</div>
       </div>
 
       <div class="edit-mode-bar">
-        <span class="mode-indicator"><span class="mode-dot" id="mode-dot"></span><span id="mode-label">A editar todas as fotografias</span></span>
+        <span class="mode-indicator"><span class="mode-dot" id="mode-dot"></span><span id="mode-label">A editar todas as fotos</span></span>
         <div class="edit-mode-actions">
-          <button class="btn-link" id="btn-reset-photo" hidden>Repor esta foto</button>
+          <button class="btn-link" id="btn-reset-photo" hidden>Desfazer alteração</button>
           <button class="btn-link" id="btn-edit-all">Todas as fotos</button>
         </div>
       </div>
@@ -314,7 +307,7 @@
 
       <div class="screen-actions">
         <button class="btn-ghost" id="btn-position-back">← Voltar</button>
-        <button class="btn-primary" id="btn-position-next">Gerar fotografias →</button>
+        <button class="btn-primary" id="btn-position-next">Gerar fotos →</button>
       </div>
     </section>
 
@@ -327,7 +320,7 @@
       </div>
       <div class="processing-card">
         <div class="processing-thumb" id="processing-thumb"></div>
-        <div class="processing-label">A processar fotografia</div>
+        <div class="processing-label">A processar foto</div>
         <div class="processing-count" id="processing-count">0 de 0</div>
         <div class="progress-bar"><div class="progress-fill" id="progress-fill"></div></div>
         <div class="progress-percent" id="progress-percent">0%</div>
@@ -344,13 +337,13 @@
         </div>
         <span class="step-label">Passo 5 de 5</span>
         <h2>Concluído!</h2>
-        <p id="success-count">0 fotografias prontas</p>
+        <p id="success-count">0 fotos prontas</p>
       </div>
       <div class="result-grid" id="result-grid"></div>
       <div class="download-section">
         <button class="btn-primary btn-large" id="btn-download-all">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-          <span id="btn-download-label">Transferir fotografias</span>
+          <span id="btn-download-label">Transferir fotos</span>
         </button>
         <div class="download-progress" id="download-progress" hidden>
           <div class="progress-bar"><div class="progress-fill" id="dl-progress-fill"></div></div>
@@ -358,7 +351,8 @@
         </div>
       </div>
       <div class="screen-actions" style="margin-top:8px">
-        <button class="btn-ghost" id="btn-restart">Marcar mais fotografias</button>
+        <button class="btn-ghost" id="btn-continue-edit">Continuar a editar</button>
+        <button class="btn-ghost" id="btn-restart">Marcar mais fotos</button>
       </div>
     </section>
 
@@ -378,6 +372,18 @@
   <a class="support-fab" href="/pages/suporte.html" target="_blank" rel="noopener" title="Suporte" aria-label="Suporte">
     <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
   </a>
+
+  <!-- Popup: retomar trabalho por terminar -->
+  <div class="tk-modal" id="resume-modal" hidden>
+    <div class="tk-modal-card" role="dialog" aria-modal="true" aria-labelledby="resume-title">
+      <h3 id="resume-title">Continuar o trabalho?</h3>
+      <p id="resume-text">Encontrámos fotos que estavas a marcar.</p>
+      <div class="tk-modal-actions">
+        <button class="btn-primary" id="resume-continue">Continuar</button>
+        <button class="btn-ghost" id="resume-discard">Começar de novo</button>
+      </div>
+    </div>
+  </div>
 
   <div class="toast" id="toast" hidden></div>
 
