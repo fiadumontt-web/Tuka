@@ -107,6 +107,13 @@
 
     <!-- Passo 1 -->
     <section class="screen" id="screen-photos" data-step="1">
+      <div id="session-banner" class="session-banner" hidden>
+        <div class="sb-text">Tens um trabalho por terminar <span id="sb-count"></span></div>
+        <div class="sb-actions">
+          <button class="btn-primary" id="sb-continue">Continuar</button>
+          <button class="btn-ghost" id="sb-discard">Começar de novo</button>
+        </div>
+      </div>
       <div class="screen-header">
         <span class="step-label">Passo 1 de 5</span>
         <h2>Adicione as fotografias</h2>
@@ -135,8 +142,9 @@
         <p>Logótipo em imagem ou o nome da empresa em texto</p>
       </div>
       <div class="tab-switch">
-        <button class="tab-btn active" data-tab="image">Logótipo (imagem)</button>
-        <button class="tab-btn" data-tab="text">Nome (texto)</button>
+        <button class="tab-btn active" data-tab="image">Logótipo</button>
+        <button class="tab-btn" data-tab="text">Nome</button>
+        <button class="tab-btn" data-tab="favorites">Favoritos</button>
       </div>
 
       <!-- Aba imagem -->
@@ -156,6 +164,7 @@
               <button class="btn-link" id="btn-change-logo">Alterar</button>
             </div>
           </div>
+          <button class="btn-link fav-save" id="btn-fav-logo" type="button">★ Guardar nos favoritos</button>
 
           <!-- Formato — mockups CSS limpos -->
           <div class="form-group" style="margin-top:18px">
@@ -188,6 +197,7 @@
       <!-- Aba texto -->
       <div class="tab-panel" id="tab-text" hidden>
         <input type="text" class="text-input" id="input-text" placeholder="Nome da empresa" maxlength="40">
+        <button class="btn-link fav-save" id="btn-fav-name" type="button">★ Guardar nome nos favoritos</button>
 
         <div class="form-group">
           <label>Tipo de letra</label>
@@ -243,6 +253,12 @@
             </div>
           </div>
         </div>
+      </div>
+
+      <!-- Aba favoritos -->
+      <div class="tab-panel" id="tab-favorites" hidden>
+        <div id="favorites-list" class="favorites-list"></div>
+        <div class="info-tip" id="favorites-empty" hidden><strong>Sem favoritos ainda.</strong> Guarda um logótipo ou nome com a estrela e fica aqui à mão da próxima vez.</div>
       </div>
 
       <div class="screen-actions">
@@ -345,17 +361,17 @@
   </main>
 
   <footer class="app-footer">
-    <a href="/pages/privacidade.html">Privacidade</a>
+    <a href="/pages/privacidade.html" target="_blank" rel="noopener">Privacidade</a>
     <span>·</span>
-    <a href="/pages/ajuda.html">Ajuda</a>
+    <a href="/pages/ajuda.html" target="_blank" rel="noopener">Ajuda</a>
     <span>·</span>
-    <a href="/pages/suporte.html">Suporte</a>
+    <a href="/pages/suporte.html" target="_blank" rel="noopener">Suporte</a>
     <span>·</span>
     <a href="https://fiadumont.com/" target="_blank" rel="noopener">© Fiadumont 2026</a>
   </footer>
 
   <!-- Botão de suporte = link directo para a página de suporte -->
-  <a class="support-fab" href="/pages/suporte.html" title="Suporte" aria-label="Suporte">
+  <a class="support-fab" href="/pages/suporte.html" target="_blank" rel="noopener" title="Suporte" aria-label="Suporte">
     <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
   </a>
 
@@ -369,6 +385,7 @@
   <script src="/scripts/export.js"></script>
   <script src="/scripts/tour.js"></script>
   <script src="/scripts/app.js"></script>
+  <script src="/scripts/store.js"></script>
   <script>
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => navigator.serviceWorker.register('/sw.js').catch(() => {}));

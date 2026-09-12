@@ -12,6 +12,7 @@ const ASSETS = [
   '/scripts/tour.js',
   '/scripts/limits.js',
   '/scripts/api.js',
+  '/scripts/store.js',
   '/images/logo-tuka.svg',
   '/icons/icon-192.png',
   '/icons/icon-512.png',
