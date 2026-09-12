@@ -58,6 +58,7 @@
   <script>
     (function(){
       var s = document.getElementById('tuka-splash'); if (!s) return;
+      try { if (sessionStorage.getItem('tuka-booted')) { if (s.parentNode) s.parentNode.removeChild(s); return; } sessionStorage.setItem('tuka-booted','1'); } catch(e){}
       var arc = document.getElementById('tk-arc');
       var pct = document.getElementById('tk-pct');
       var C = 628, LOAD = 2600;
@@ -278,35 +279,38 @@
         <canvas id="position-canvas"></canvas>
         <div class="canvas-counter" id="canvas-counter">Fotografia 1 de 1</div>
       </div>
-      <div class="thumbs-strip" id="thumbs-strip"></div>
 
-      <details class="advanced-panel">
-        <summary>
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
-          Posição diferente por fotografia
-        </summary>
-        <div class="advanced-content">
-          <div class="mode-indicator" id="mode-indicator">
-            <span class="mode-dot" id="mode-dot"></span>
-            <span id="mode-label">A editar todas as fotografias</span>
-          </div>
-          <p class="hint">Seleccione uma fotografia para lhe definir uma posição exclusiva. O ponto laranja indica que tem posição própria. Para voltar ao modo geral, prima "Editar todas".</p>
-          <div class="advanced-grid" id="advanced-grid"></div>
-          <button class="btn-link" id="btn-edit-all" style="width:100%;text-align:center;margin-bottom:12px">← Editar todas</button>
-          <div class="row-controls">
-            <label>Tamanho</label>
-            <input type="range" id="size-range" min="5" max="60" value="20">
-            <span id="size-value">20%</span>
-          </div>
-          <div class="row-controls">
-            <label>Opacidade</label>
-            <input type="range" id="opacity-range" min="20" max="100" value="100">
-            <span id="opacity-value">100%</span>
-          </div>
+      <div class="edit-mode-bar">
+        <span class="mode-indicator"><span class="mode-dot" id="mode-dot"></span><span id="mode-label">A editar todas as fotografias</span></span>
+        <div class="edit-mode-actions">
+          <button class="btn-link" id="btn-reset-photo" hidden>Repor esta foto</button>
+          <button class="btn-link" id="btn-edit-all">Todas as fotos</button>
         </div>
-      </details>
+      </div>
 
-      <div class="info-tip-small">A mesma posição aplica-se a todas as fotografias. Utilize o painel acima para configurar cada uma individualmente.</div>
+      <div class="thumbs-strip" id="thumbs-strip"></div>
+      <div class="quick-pos-wrap">
+        <span class="quick-pos-label">Posições rápidas</span>
+        <div class="quick-pos" id="quick-pos" role="group" aria-label="Posições rápidas">
+          <button type="button" data-pos="tl" aria-label="Cima esquerda"></button>
+          <button type="button" data-pos="tr" aria-label="Cima direita"></button>
+          <button type="button" data-pos="c" aria-label="Centro"></button>
+          <button type="button" data-pos="bl" aria-label="Baixo esquerda"></button>
+          <button type="button" data-pos="br" aria-label="Baixo direita"></button>
+        </div>
+      </div>
+      <p class="hint hint-position">Toque numa foto para lhe dar uma posição própria. O ponto laranja marca as que já têm. Toque em "Todas as fotos" para mover em todas ao mesmo tempo.</p>
+
+      <div class="row-controls">
+        <label>Tamanho</label>
+        <input type="range" id="size-range" min="5" max="60" value="20">
+        <span id="size-value">20%</span>
+      </div>
+      <div class="row-controls">
+        <label>Opacidade</label>
+        <input type="range" id="opacity-range" min="20" max="100" value="100">
+        <span id="opacity-value">100%</span>
+      </div>
 
       <div class="screen-actions">
         <button class="btn-ghost" id="btn-position-back">← Voltar</button>
