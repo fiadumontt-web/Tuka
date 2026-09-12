@@ -6,7 +6,7 @@ function initPhotos() {
   const nextBtn = document.getElementById('btn-photos-next');
 
   function updateCounter() {
-    counter.textContent = `${state.photos.length} de 20 fotografias carregadas`;
+    counter.textContent = `${state.photos.length} de 20 fotos carregadas`;
     nextBtn.disabled = state.photos.length === 0;
   }
 
@@ -17,7 +17,7 @@ function initPhotos() {
       div.className = 'photo-thumb';
       // object-fit: cover garante que a miniatura não distorce
       div.innerHTML = `
-        <img src="${photo.url}" alt="Fotografia ${i + 1}" loading="lazy" decoding="async" style="width:100%;height:100%;object-fit:cover;display:block">
+        <img src="${photo.url}" alt="Foto ${i + 1}" loading="lazy" decoding="async" style="width:100%;height:100%;object-fit:cover;display:block">
         <button class="remove-btn" data-index="${i}" aria-label="Remover">✕</button>
       `;
       grid.appendChild(div);
@@ -38,7 +38,7 @@ function initPhotos() {
   function addFiles(files) {
     const remaining = 20 - state.photos.length;
     if (remaining === 0) {
-      showToast('Já atingiu o limite de 20 fotografias. Remova alguma para adicionar mais.', true);
+      showToast('Já atingiu o limite de 20 fotos. Remova alguma para adicionar mais.', true);
       return;
     }
 

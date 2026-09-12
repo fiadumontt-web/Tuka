@@ -67,10 +67,10 @@ function updateModeIndicator() {
   if (!dot || !label) return;
   if (editMode === 'all') {
     dot.style.background = 'var(--text-faint)';
-    label.textContent = 'A editar todas as fotografias';
+    label.textContent = 'A editar todas as fotos';
   } else {
     dot.style.background = 'var(--orange)';
-    label.textContent = `A editar só a fotografia ${editMode + 1}`;
+    label.textContent = `A editar só a foto ${editMode + 1}`;
   }
   const reset = document.getElementById('btn-reset-photo');
   if (reset) reset.hidden = !(editMode !== 'all' && state.photos[editMode] && state.photos[editMode].override);
@@ -82,19 +82,19 @@ function renderThumbsStrip() {
   state.photos.forEach((photo, i) => {
     const div = document.createElement('div');
     div.className = 'thumb' + (i === state.activePhotoIndex ? ' active' : '') + (photo.override ? ' has-override' : '');
-    div.innerHTML = `<img src="${photo.url}" alt="Fotografia ${i + 1}">`;
+    div.innerHTML = `<img src="${photo.url}" alt="Foto ${i + 1}">`;
     div.addEventListener('click', async () => {
       editMode = i;
       state.activePhotoIndex = i;
       updateModeIndicator();
       syncControlsToMode();
       renderThumbsStrip();
-      document.getElementById('canvas-counter').textContent = `Fotografia ${i + 1} de ${state.photos.length}`;
+      document.getElementById('canvas-counter').textContent = `Foto ${i + 1} de ${state.photos.length}`;
       await drawCurrentPhoto();
     });
     strip.appendChild(div);
   });
-  document.getElementById('canvas-counter').textContent = `Fotografia ${state.activePhotoIndex + 1} de ${state.photos.length}`;
+  document.getElementById('canvas-counter').textContent = `Foto ${state.activePhotoIndex + 1} de ${state.photos.length}`;
 }
 
 function renderAdvancedGrid() {
@@ -105,7 +105,7 @@ function renderAdvancedGrid() {
     const div = document.createElement('div');
     div.className = 'check-thumb' + (editMode === i ? ' checked' : '');
     div.style.position = 'relative';
-    div.innerHTML = `<img src="${photo.url}" alt="Fotografia ${i + 1}">`;
+    div.innerHTML = `<img src="${photo.url}" alt="Foto ${i + 1}">`;
     if (photo.override) {
       const dot = document.createElement('div');
       dot.style.cssText = 'position:absolute;top:4px;right:4px;width:8px;height:8px;border-radius:50%;background:var(--orange);pointer-events:none';

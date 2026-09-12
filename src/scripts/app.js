@@ -90,7 +90,17 @@ document.getElementById('btn-position-back').addEventListener('click', () => goT
 document.getElementById('btn-position-next').addEventListener('click', async () => {
   goToStep(4);
   await processAllPhotos();
+  if (window.tukaClearSession) window.tukaClearSession();
   goToStep(5);
+});
+
+// Voltar a editar a partir do ecrã final, antes de baixar
+const btnContinueEdit = document.getElementById('btn-continue-edit');
+if (btnContinueEdit) btnContinueEdit.addEventListener('click', () => {
+  state.results = [];
+  const rg = document.getElementById('result-grid');
+  if (rg) rg.innerHTML = '';
+  goToStep(3);
 });
 
 document.getElementById('btn-restart').addEventListener('click', () => {
