@@ -292,11 +292,18 @@ input[type="range"]::-moz-range-thumb { width: 20px; height: 20px; background: v
   position: relative; background: var(--bg-elevated);
   border-radius: var(--radius-md); overflow: hidden;
   margin-bottom: var(--space-md); width: 100%;
+  display: grid; place-items: center;
 }
 #position-canvas {
-  display: block; width: 100%; height: auto;
-  touch-action: none; max-height: 65vh; object-fit: contain;
+  display: block; width: auto; height: auto;
+  max-width: 100%; max-height: 56vh; margin: 0 auto;
+  touch-action: none;
 }
+.edit-mode-bar { display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap; margin-bottom: 10px; }
+.edit-mode-bar .mode-indicator { margin-bottom: 0; }
+.edit-mode-actions { display: flex; gap: 14px; }
+.edit-mode-actions .btn-link { font-size: 13px; }
+.hint-position { font-size: 12px; color: var(--text-muted); margin-bottom: var(--space-md); line-height: 1.5; }
 .canvas-counter {
   position: absolute; top: var(--space-sm); left: var(--space-sm);
   background: rgba(13,10,8,0.8); color: var(--text);
@@ -414,3 +421,16 @@ input[type="range"]::-moz-range-thumb { width: 20px; height: 20px; background: v
 .fav-name{font-size:13px;color:var(--text);word-break:break-word}
 .fav-name-tile{font-size:18px;font-weight:700;line-height:1.2;word-break:break-word}
 .fav-del{position:absolute;top:-6px;right:-6px;width:22px;height:22px;border-radius:50%;border:none;background:var(--danger);color:#fff;font-size:12px;line-height:1;cursor:pointer;display:grid;place-items:center}
+
+/* ===== Posições rápidas (presets) ===== */
+.quick-pos-wrap { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; }
+.quick-pos-label { font-size: 12px; color: var(--text-muted); }
+.quick-pos { position: relative; width: 104px; height: 78px; flex-shrink: 0; background: var(--bg-input); border: 1px solid var(--border); border-radius: 8px; }
+.quick-pos button { position: absolute; width: 20px; height: 20px; border-radius: 50%; border: 2px solid var(--border-strong); background: transparent; cursor: pointer; padding: 0; transform: translate(-50%, -50%); }
+.quick-pos button:hover { border-color: var(--orange); }
+.quick-pos button.active { background: var(--orange); border-color: var(--orange); }
+.quick-pos button[data-pos="tl"] { left: 20%; top: 22%; }
+.quick-pos button[data-pos="tr"] { left: 80%; top: 22%; }
+.quick-pos button[data-pos="c"]  { left: 50%; top: 50%; }
+.quick-pos button[data-pos="bl"] { left: 20%; top: 78%; }
+.quick-pos button[data-pos="br"] { left: 80%; top: 78%; }
