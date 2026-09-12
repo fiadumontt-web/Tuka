@@ -69,7 +69,6 @@ self.addEventListener('fetch', event => {
     );
     return;
   }
-  }
 
   // Assets estáticos — cache first, network fallback
   event.respondWith(
