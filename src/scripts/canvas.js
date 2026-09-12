@@ -1,5 +1,6 @@
 let logoImageEl = null;
 let editMode = 'all'; // 'all' ou índice numérico
+const QUICK_POS = { tl:[0.2,0.2], tr:[0.8,0.2], c:[0.5,0.5], bl:[0.2,0.8], br:[0.8,0.8] };
 
 async function initCanvas() {
   if (state.logo.type === 'image' && state.logo.image) {
@@ -11,20 +12,33 @@ async function initCanvas() {
   editMode = 'all';
   state.activePhotoIndex = 0;
   renderThumbsStrip();
-  renderAdvancedGrid();
   updateModeIndicator();
   await drawCurrentPhoto();
   setupCanvasInteraction(document.getElementById('position-canvas'));
   setupAdvancedControls();
+  setupQuickPositions();
 
   const btnEditAll = document.getElementById('btn-edit-all');
   if (btnEditAll) {
     btnEditAll.onclick = () => {
       editMode = 'all';
       updateModeIndicator();
-      renderAdvancedGrid();
+      renderThumbsStrip();
       syncControlsToMode();
       drawCurrentPhoto();
+    };
+  }
+
+  const btnResetPhoto = document.getElementById('btn-reset-photo');
+  if (btnResetPhoto) {
+    btnResetPhoto.onclick = () => {
+      if (editMode !== 'all') {
+        state.photos[editMode].override = null;
+        updateModeIndicator();
+        renderThumbsStrip();
+        syncControlsToMode();
+        drawCurrentPhoto();
+      }
     };
   }
 }
@@ -56,8 +70,10 @@ function updateModeIndicator() {
     label.textContent = 'A editar todas as fotografias';
   } else {
     dot.style.background = 'var(--orange)';
-    label.textContent = `A editar fotografia ${editMode + 1} individualmente`;
+    label.textContent = `A editar só a fotografia ${editMode + 1}`;
   }
+  const reset = document.getElementById('btn-reset-photo');
+  if (reset) reset.hidden = !(editMode !== 'all' && state.photos[editMode] && state.photos[editMode].override);
 }
 
 function renderThumbsStrip() {
@@ -68,7 +84,10 @@ function renderThumbsStrip() {
     div.className = 'thumb' + (i === state.activePhotoIndex ? ' active' : '') + (photo.override ? ' has-override' : '');
     div.innerHTML = `<img src="${photo.url}" alt="Fotografia ${i + 1}">`;
     div.addEventListener('click', async () => {
+      editMode = i;
       state.activePhotoIndex = i;
+      updateModeIndicator();
+      syncControlsToMode();
       renderThumbsStrip();
       document.getElementById('canvas-counter').textContent = `Fotografia ${i + 1} de ${state.photos.length}`;
       await drawCurrentPhoto();
@@ -80,6 +99,7 @@ function renderThumbsStrip() {
 
 function renderAdvancedGrid() {
   const grid = document.getElementById('advanced-grid');
+  if (!grid) return;
   grid.innerHTML = '';
   state.photos.forEach((photo, i) => {
     const div = document.createElement('div');
@@ -137,8 +157,9 @@ async function drawCurrentPhoto() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
 
-  const cfg = photo.override || state.position;
+  const cfg = (editMode === 'all') ? state.position : (photo.override || state.position);
   drawLogo(ctx, canvas.width, canvas.height, cfg);
+  highlightQuickPos();
 }
 
 function drawLogo(ctx, w, h, cfg) {
@@ -352,5 +373,33 @@ function setupAdvancedControls() {
     opacityValue.textContent = val + '%';
     applyUpdate({ opacity: val / 100 });
     drawCurrentPhoto();
+  });
+}
+
+function setupQuickPositions() {
+  const box = document.getElementById('quick-pos');
+  if (!box) return;
+  box.querySelectorAll('button[data-pos]').forEach(btn => {
+    btn.onclick = () => {
+      const p = QUICK_POS[btn.dataset.pos];
+      if (!p) return;
+      applyUpdate({ x: p[0], y: p[1] });
+      drawCurrentPhoto();
+      renderThumbsStrip();
+      updateModeIndicator();
+    };
+  });
+}
+
+function highlightQuickPos() {
+  const box = document.getElementById('quick-pos');
+  if (!box) return;
+  const cfg = getActiveCfg();
+  const cx = cfg.x !== undefined ? cfg.x : 0.7;
+  const cy = cfg.y !== undefined ? cfg.y : 0.85;
+  box.querySelectorAll('button[data-pos]').forEach(btn => {
+    const p = QUICK_POS[btn.dataset.pos];
+    const on = p && Math.abs(cx - p[0]) < 0.02 && Math.abs(cy - p[1]) < 0.02;
+    btn.classList.toggle('active', !!on);
   });
 }
