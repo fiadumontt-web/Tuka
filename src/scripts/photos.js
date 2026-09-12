@@ -59,6 +59,9 @@ function initPhotos() {
     updateCounter();
   }
 
+  // Gancho para o restauro de sessao redesenhar a grelha
+  window.tukaPhotosRefresh = function(){ renderGrid(); updateCounter(); };
+
   input.addEventListener('change', e => { addFiles(e.target.files); input.value = ''; });
 
   ['dragenter', 'dragover'].forEach(evt => {

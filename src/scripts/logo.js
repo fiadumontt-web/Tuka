@@ -28,14 +28,21 @@ function initLogo() {
   });
 
   // Tabs
+  function selectTab(tab){
+    tabBtns.forEach(b => b.classList.toggle('active', b.dataset.tab === tab));
+    tabImage.hidden = tab !== 'image';
+    tabText.hidden = tab !== 'text';
+    const favPanel = document.getElementById('tab-favorites');
+    if (favPanel) favPanel.hidden = tab !== 'favorites';
+    if (tab === 'image' || tab === 'text') state.logo.type = tab;
+    updateNextBtn();
+  }
+  window.tukaSelectLogoTab = selectTab;
+
   tabBtns.forEach(btn => {
     btn.addEventListener('click', () => {
-      tabBtns.forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      state.logo.type = btn.dataset.tab;
-      tabImage.hidden = btn.dataset.tab !== 'image';
-      tabText.hidden = btn.dataset.tab !== 'text';
-      updateNextBtn();
+      selectTab(btn.dataset.tab);
+      if (btn.dataset.tab === 'favorites' && window.tukaRenderFavorites) window.tukaRenderFavorites();
     });
   });
 
@@ -170,6 +177,37 @@ function initLogo() {
     if (state.logo.type === 'image') nextBtn.disabled = !state.logo.image;
     else nextBtn.disabled = !(state.logo.text && state.logo.text.trim());
   }
+
+  // ---- Hooks para favoritos e restauro de sessao ----
+  window.tukaApplyLogoImage = function(image){
+    if (state.logo.image && state.logo.image.url) { try { URL.revokeObjectURL(state.logo.image.url); } catch(e){} }
+    const url = URL.createObjectURL(image.file);
+    state.logo.image = { file: image.file, url: url, name: image.name || 'logotipo', hasBgRemoved: !!image.hasBgRemoved };
+    state.logo.type = 'image';
+    logoPreviewImg.src = url;
+    logoFilename.textContent = state.logo.image.name;
+    logoUpload.hidden = true;
+    logoControls.hidden = false;
+    document.querySelectorAll('.format-btn').forEach(b => b.classList.toggle('active', b.dataset.format === (state.logo.format || 'original')));
+    updateLimitDisplay();
+    selectTab('image');
+  };
+
+  window.tukaApplyLogoName = function(cfg){
+    state.logo.type = 'text';
+    state.logo.text = cfg.text || '';
+    state.logo.font = cfg.font || 'DM Sans';
+    state.logo.color = cfg.color || '#ffffff';
+    if (cfg.textBg) state.logo.textBg = cfg.textBg;
+    inputText.value = state.logo.text;
+    textFont.value = state.logo.font;
+    document.querySelectorAll('#color-palette .color-tile').forEach(t => t.classList.toggle('active', t.dataset.color === state.logo.color));
+    if (state.logo.textBg) {
+      textBgToggle.checked = !!state.logo.textBg.enabled;
+      textBgOptions.hidden = !state.logo.textBg.enabled;
+    }
+    selectTab('text');
+  };
 
   updateLimitDisplay();
 }

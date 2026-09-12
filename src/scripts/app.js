@@ -59,7 +59,7 @@ document.getElementById('btn-theme').addEventListener('click', () => {
 
 // Botão de ajuda
 document.getElementById('btn-help').addEventListener('click', () => {
-  window.location.href = '/pages/ajuda.html';
+  window.open('/pages/ajuda.html', '_blank', 'noopener');
 });
 
 // Navegação dos ecrãs
@@ -95,6 +95,7 @@ document.getElementById('btn-position-next').addEventListener('click', async () 
 
 document.getElementById('btn-restart').addEventListener('click', () => {
   if (confirm('Queres começar de novo? Vais perder as fotos actuais.')) {
+    if (window.tukaClearSession) window.tukaClearSession();
     location.reload();
   }
 });
