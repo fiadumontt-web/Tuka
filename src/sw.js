@@ -1,4 +1,4 @@
-const CACHE_NAME = 'tuka-v2.3.0';
+const CACHE_NAME = 'tuka-v2.4.0';
 const ASSETS = [
   '/',
   '/index.html',
@@ -54,13 +54,21 @@ self.addEventListener('fetch', event => {
     return;
   }
 
-  // Navegação — network first, fallback para index.html
+   // Navegação — serve já da cache, actualiza em segundo plano
   if (event.request.mode === 'navigate') {
     event.respondWith(
-      fetch(event.request)
-        .catch(() => caches.match('/index.html'))
+      caches.match('/index.html').then(cached => {
+        const network = fetch(event.request)
+          .then(res => {
+            caches.open(CACHE_NAME).then(c => c.put('/index.html', res.clone()));
+            return res;
+          })
+          .catch(() => cached);
+        return cached || network;
+      })
     );
     return;
+  }
   }
 
   // Assets estáticos — cache first, network fallback
