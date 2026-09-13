@@ -87,6 +87,9 @@
         text: state.logo.text || '',
         font: state.logo.font || 'DM Sans',
         color: state.logo.color || '#ffffff',
+        imageText: state.logo.imageText || '',
+        imageTextColor: state.logo.imageTextColor || '#ffffff',
+        imageTextPos: state.logo.imageTextPos || 'below',
         format: state.logo.format || 'original',
         textBg: state.logo.textBg || { enabled: false, color: '#000000', opacity: 0.7 },
         image: state.logo.image ? { blob: state.logo.image.file, name: state.logo.image.name, hasBgRemoved: !!state.logo.image.hasBgRemoved } : null
@@ -116,6 +119,11 @@
       });
       state.position = rec.position || state.position;
       state.logo.format = rec.logo.format || 'original';
+      state.logo.imageText = rec.logo.imageText || '';
+      state.logo.imageTextColor = rec.logo.imageTextColor || '#ffffff';
+      state.logo.imageTextPos = rec.logo.imageTextPos || 'below';
+      var _lt = document.getElementById('input-logo-text');
+      if (_lt) _lt.value = state.logo.imageText;
       state.logo.textBg = rec.logo.textBg || state.logo.textBg;
 
       if (rec.logo.type === 'text') {

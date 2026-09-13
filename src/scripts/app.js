@@ -7,7 +7,10 @@ const state = {
     image: null,       // {file, url, name, hasBgRemoved}
     text: '',
     font: 'DM Sans',
-    color: '#ffffff'
+    color: '#ffffff',
+    imageText: '',            // texto opcional junto ao logo (só no modo imagem)
+    imageTextColor: '#ffffff',
+    imageTextPos: 'below'     // 'below' (abaixo) ou 'right' (ao lado)
   },
   position: {
     x: 0.7,            // posição relativa (0-1)
@@ -59,7 +62,7 @@ document.getElementById('btn-theme').addEventListener('click', () => {
 
 // Botão de ajuda
 document.getElementById('btn-help').addEventListener('click', () => {
-  window.open('/pages/ajuda.html', '_blank', 'noopener');
+  openPage('/pages/ajuda.html', 'Ajuda');
 });
 
 // Navegação dos ecrãs
@@ -118,3 +121,29 @@ window.addEventListener('DOMContentLoaded', () => {
   initLimits();
   initTour();
 });
+
+// ===== Janela de páginas dentro do app (não sai, não recarrega) =====
+function openPage(url, title) {
+  var ov = document.getElementById('page-overlay');
+  if (!ov) { window.location.href = url; return; }
+  var t = document.getElementById('page-overlay-title');
+  var f = document.getElementById('page-overlay-frame');
+  if (t) t.textContent = title || '';
+  if (f) f.src = url;
+  ov.hidden = false;
+}
+function closePage() {
+  var ov = document.getElementById('page-overlay');
+  if (!ov) return;
+  ov.hidden = true;
+  var f = document.getElementById('page-overlay-frame');
+  if (f) f.src = 'about:blank';
+}
+document.querySelectorAll('.page-link').forEach(function (a) {
+  a.addEventListener('click', function (e) {
+    e.preventDefault();
+    openPage(a.getAttribute('href'), a.dataset.title || '');
+  });
+});
+var _pgClose = document.getElementById('page-overlay-close');
+if (_pgClose) _pgClose.addEventListener('click', closePage);

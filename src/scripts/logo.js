@@ -169,6 +169,24 @@ function initLogo() {
     state.logo.textBg.opacity = val / 100;
   });
 
+  // Texto junto ao logo (apenas no modo imagem)
+  const inputLogoText = document.getElementById('input-logo-text');
+  if (inputLogoText) inputLogoText.addEventListener('input', e => { state.logo.imageText = e.target.value; });
+  document.querySelectorAll('#logo-text-palette .color-tile').forEach(tile => {
+    tile.addEventListener('click', () => {
+      document.querySelectorAll('#logo-text-palette .color-tile').forEach(t => t.classList.remove('active'));
+      tile.classList.add('active');
+      state.logo.imageTextColor = tile.dataset.color;
+    });
+  });
+  document.querySelectorAll('#logo-text-pos button').forEach(b => {
+    b.addEventListener('click', () => {
+      document.querySelectorAll('#logo-text-pos button').forEach(x => x.classList.remove('active'));
+      b.classList.add('active');
+      state.logo.imageTextPos = b.dataset.pos;
+    });
+  });
+
   // Texto
   inputText.addEventListener('input', e => { state.logo.text = e.target.value; updateNextBtn(); });
   textFont.addEventListener('change', e => { state.logo.font = e.target.value; });

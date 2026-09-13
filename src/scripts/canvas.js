@@ -195,6 +195,24 @@ function drawLogo(ctx, w, h, cfg) {
     } else {
       ctx.drawImage(logoImageEl, -logoW / 2, -logoH / 2, logoW, logoH);
     }
+    if (state.logo.imageText && state.logo.imageText.trim()) {
+      const _t = state.logo.imageText.trim();
+      const _drawnH = (fmt === 'original') ? logoH : logoW;
+      const _drawnW = logoW;
+      const _ts = Math.max(10, logoW * 0.16);
+      ctx.font = `600 ${_ts}px "DM Sans", sans-serif`;
+      ctx.textBaseline = 'middle';
+      ctx.fillStyle = state.logo.imageTextColor || '#ffffff';
+      ctx.shadowColor = 'rgba(0,0,0,0.4)';
+      ctx.shadowBlur = _ts * 0.12;
+      if (state.logo.imageTextPos === 'right') {
+        ctx.textAlign = 'left';
+        ctx.fillText(_t, _drawnW / 2 + _ts * 0.5, 0);
+      } else {
+        ctx.textAlign = 'center';
+        ctx.fillText(_t, 0, _drawnH / 2 + _ts * 0.9);
+      }
+    }
     ctx.restore();
 
   } else if (state.logo.type === 'text' && state.logo.text) {
