@@ -1,4 +1,4 @@
-const CACHE_NAME = 'tuka-v2.13.0';
+const CACHE_NAME = 'tuka-v2.15.0';
 const ASSETS = [
   '/',
   '/index.html',
