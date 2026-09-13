@@ -1,4 +1,4 @@
-const CACHE_NAME = 'tuka-v2.17.0';
+const CACHE_NAME = 'tuka-v2.18.0';
 const ASSETS = [
   '/',
   '/index.html',
@@ -55,16 +55,19 @@ self.addEventListener('fetch', event => {
     return;
   }
 
-   // Navegação — serve já da cache, actualiza em segundo plano
+  // Navegação — serve a página pedida (cache primeiro), rede em segundo plano
   if (event.request.mode === 'navigate') {
     event.respondWith(
-      caches.match('/index.html').then(cached => {
+      caches.match(event.request).then(cached => {
         const network = fetch(event.request)
           .then(res => {
-            caches.open(CACHE_NAME).then(c => c.put('/index.html', res.clone()));
+            if (res && res.ok && res.type === 'basic') {
+              const clone = res.clone();
+              caches.open(CACHE_NAME).then(c => c.put(event.request, clone));
+            }
             return res;
           })
-          .catch(() => cached);
+          .catch(() => cached || caches.match('/index.html'));
         return cached || network;
       })
     );
