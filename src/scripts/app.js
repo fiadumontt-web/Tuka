@@ -62,7 +62,7 @@ document.getElementById('btn-theme').addEventListener('click', () => {
 
 // Botão de ajuda
 document.getElementById('btn-help').addEventListener('click', () => {
-  openPage('/pages/ajuda.html', 'Ajuda');
+  window.location.href = '/pages/ajuda.html';
 });
 
 // Navegação dos ecrãs
@@ -121,29 +121,3 @@ window.addEventListener('DOMContentLoaded', () => {
   initLimits();
   initTour();
 });
-
-// ===== Janela de páginas dentro do app (não sai, não recarrega) =====
-function openPage(url, title) {
-  var ov = document.getElementById('page-overlay');
-  if (!ov) { window.location.href = url; return; }
-  var t = document.getElementById('page-overlay-title');
-  var f = document.getElementById('page-overlay-frame');
-  if (t) t.textContent = title || '';
-  if (f) f.src = url;
-  ov.hidden = false;
-}
-function closePage() {
-  var ov = document.getElementById('page-overlay');
-  if (!ov) return;
-  ov.hidden = true;
-  var f = document.getElementById('page-overlay-frame');
-  if (f) f.src = 'about:blank';
-}
-document.querySelectorAll('.page-link').forEach(function (a) {
-  a.addEventListener('click', function (e) {
-    e.preventDefault();
-    openPage(a.getAttribute('href'), a.dataset.title || '');
-  });
-});
-var _pgClose = document.getElementById('page-overlay-close');
-if (_pgClose) _pgClose.addEventListener('click', closePage);

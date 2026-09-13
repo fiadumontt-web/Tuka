@@ -1,200 +1,193 @@
-// Tour guiado do Tuka — implementação simples e robusta
-// Apenas um overlay, criado uma só vez, sem conflitos
+// Visita guiada do Tuka — coach-marks que acompanham a primeira marcação.
+// Destaca o elemento real, aponta com uma seta e avança quando a pessoa age.
 
-(function() {
+(function () {
   'use strict';
 
-  const STEPS = [
-    {
-      title: 'Bem-vinda ao Tuka',
-      text: 'Vamos mostrar-te tudo em 4 passos rápidos.',
-      target: null
-    },
-    {
-      title: 'Adiciona as tuas fotos',
-      text: 'Toca aqui para escolher até 20 fotos dos teus produtos da galeria.',
-      target: 'dropzone'
-    },
-    {
-      title: 'Escolhe o teu logo',
-      text: 'Depois de adicionar as fotos, escolhes o logo da empresa em imagem ou só o nome escrito.',
-      target: null
-    },
-    {
-      title: 'Move com o dedo',
-      text: 'Arrasta o logo para a posição que quiseres. Usa dois dedos para mudar o tamanho.',
-      target: null
-    },
-    {
-      title: 'Configurações por foto',
-      text: 'Precisas de posições diferentes em cada foto? Tens essa opção dentro do passo 3.',
-      target: null
-    }
+  var STEPS = [
+    { target: null, title: 'Bem-vindo(a) à Tuka',
+      text: 'Em poucos toques marca as suas fotos com o seu logo. Vamos a isso, é rápido.',
+      advance: 'next' },
+    { target: 'dropzone', title: 'Adicione as suas fotos',
+      text: 'Toque aqui para escolher as fotos dos seus produtos, até 20 de cada vez.',
+      advance: 'photos' },
+    { target: 'btn-photos-next', title: 'Continue',
+      text: 'Depois de escolher, toque em Continuar para avançar.',
+      advance: 'click' },
+    { target: 'logo-upload', title: 'Escolha o seu logo',
+      text: 'Use uma imagem do logo, ou toque em Nome para escrever. Se já tem favoritos, estão aqui.',
+      advance: 'next' },
+    { target: 'btn-logo-next', title: 'Continue',
+      text: 'Com o logo pronto, toque em Continuar.',
+      advance: 'click' },
+    { target: 'position-canvas', title: 'Coloque o logo',
+      text: 'Arraste o logo para onde quiser na foto, ou toque numa das posições rápidas em baixo.',
+      advance: 'next' },
+    { target: 'btn-position-next', title: 'Gere as suas fotos',
+      text: 'Toque em Gerar e as suas fotos ficam prontas para baixar. Terminou!',
+      advance: 'click-end' }
   ];
 
-  let currentStep = 0;
-  let elements = null;
+  var idx = 0, dim, card, arrow, raf = null, poll = null, clickEl = null, clickFn = null, active = false;
 
-  function buildTour() {
-    // Container principal
-    const root = document.createElement('div');
-    root.id = 'tk-tour-root';
-    root.setAttribute('style', [
-      'position: fixed',
-      'inset: 0',
-      'z-index: 999999',
-      'background: rgba(0,0,0,0.78)',
-      'display: flex',
-      'align-items: center',
-      'justify-content: center',
-      'padding: 20px',
-      'animation: tkfade 250ms ease'
-    ].join(';'));
+  function el(tag, css) { var e = document.createElement(tag); e.style.cssText = css; return e; }
 
-    // Animação de fade
-    const styleTag = document.createElement('style');
-    styleTag.id = 'tk-tour-style';
-    styleTag.textContent = '@keyframes tkfade{from{opacity:0}to{opacity:1}}';
-    document.head.appendChild(styleTag);
-
-    // Spotlight (rectângulo destacado quando há target)
-    const spot = document.createElement('div');
-    spot.id = 'tk-tour-spot';
-    spot.setAttribute('style', [
-      'position: fixed',
-      'border: 3px solid #ff8c42',
-      'border-radius: 12px',
-      'pointer-events: none',
-      'transition: all 350ms cubic-bezier(0.4,0,0.2,1)',
-      'opacity: 0',
-      'box-shadow: 0 0 0 4px rgba(255,140,66,0.25)',
-      'z-index: 1000000'
-    ].join(';'));
-
-    // Card do tooltip
-    const card = document.createElement('div');
-    card.id = 'tk-tour-card';
-    card.setAttribute('style', [
-      'background: #1a1410',
-      'border: 1px solid #4a3f35',
-      'border-radius: 16px',
-      'padding: 22px',
-      'max-width: 340px',
-      'width: 100%',
-      'box-shadow: 0 12px 40px rgba(0,0,0,0.6)',
-      'position: relative',
-      'z-index: 1000001'
-    ].join(';'));
-
-    document.body.appendChild(root);
-    document.body.appendChild(spot);
-    root.appendChild(card);
-
-    // Click fora do card fecha o tour
-    root.addEventListener('click', function(e) {
-      if (e.target === root) closeTour();
-    });
-
-    return { root, spot, card };
+  function build() {
+    dim = el('div', 'position:fixed;border-radius:14px;pointer-events:none;z-index:1000000;' +
+      'box-shadow:0 0 0 9999px rgba(0,0,0,0.72);transition:all .35s cubic-bezier(.4,0,.2,1);' +
+      'border:2px solid #ff8c42;top:50%;left:50%;width:0;height:0');
+    card = el('div', 'position:fixed;z-index:1000002;background:#1a1410;border:1px solid #4a3f35;' +
+      'border-radius:16px;padding:20px;max-width:320px;width:calc(100% - 40px);' +
+      'box-shadow:0 14px 44px rgba(0,0,0,.6);transition:top .3s ease,left .3s ease');
+    arrow = el('div', 'position:fixed;z-index:1000001;width:0;height:0;transition:all .3s ease;opacity:0');
+    document.body.appendChild(dim);
+    document.body.appendChild(arrow);
+    document.body.appendChild(card);
   }
 
-  function renderStep(index) {
-    const step = STEPS[index];
-    const isLast = index === STEPS.length - 1;
-    const dotsHtml = STEPS.map((_, i) =>
-      '<span style="display:inline-block;width:6px;height:6px;border-radius:50%;background:' +
-      (i === index ? '#ff8c42' : '#4a3f35') + ';margin-right:5px"></span>'
-    ).join('');
+  function targetRect(step) {
+    if (!step.target) return null;
+    var t = document.getElementById(step.target);
+    if (!t) return null;
+    var r = t.getBoundingClientRect();
+    if (r.width === 0 && r.height === 0) return null;
+    return r;
+  }
 
-    elements.card.innerHTML = [
-      '<div style="margin-bottom:14px">' + dotsHtml + '</div>',
-      '<h3 style="font-family:Fraunces,Georgia,serif;font-size:20px;font-weight:500;color:#faf6f0;margin:0 0 8px">',
-      step.title,
-      '</h3>',
-      '<p style="font-size:14px;color:#a8a39a;line-height:1.6;margin:0 0 20px">',
-      step.text,
-      '</p>',
-      '<div style="display:flex;align-items:center;justify-content:space-between;gap:12px">',
-        '<button id="tk-skip" style="background:transparent;border:none;color:#8a857c;font-size:14px;cursor:pointer;padding:8px 4px;font-family:inherit">Pular</button>',
-        '<button id="tk-next" style="background:#ff8c42;color:#0d0a08;border:none;padding:11px 22px;border-radius:9px;font-size:14px;font-weight:500;cursor:pointer;font-family:inherit">' + (isLast ? 'Começar ✓' : 'Próximo →') + '</button>',
-      '</div>'
-    ].join('');
+  function place() {
+    if (!active) return;
+    var step = STEPS[idx];
+    var r = targetRect(step);
+    var vw = window.innerWidth, vh = window.innerHeight;
 
-    // Spotlight no elemento alvo se existir
-    if (step.target) {
-      const targetEl = document.getElementById(step.target);
-      if (targetEl) {
-        const r = targetEl.getBoundingClientRect();
-        const pad = 10;
-        elements.spot.style.top = (r.top - pad) + 'px';
-        elements.spot.style.left = (r.left - pad) + 'px';
-        elements.spot.style.width = (r.width + pad * 2) + 'px';
-        elements.spot.style.height = (r.height + pad * 2) + 'px';
-        elements.spot.style.opacity = '1';
-        // Fazer scroll se estiver fora de vista
-        if (r.top < 0 || r.bottom > window.innerHeight) {
-          targetEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        }
+    if (r) {
+      var pad = 8;
+      dim.style.top = (r.top - pad) + 'px';
+      dim.style.left = (r.left - pad) + 'px';
+      dim.style.width = (r.width + pad * 2) + 'px';
+      dim.style.height = (r.height + pad * 2) + 'px';
+      dim.style.opacity = '1';
+
+      var below = r.top < vh * 0.5;
+      var ch = card.offsetHeight || 150, cw = card.offsetWidth || 300;
+      var cardTop = below ? (r.bottom + 18) : (r.top - ch - 18);
+      cardTop = Math.max(12, Math.min(cardTop, vh - ch - 12));
+      var cardLeft = r.left + r.width / 2 - cw / 2;
+      cardLeft = Math.max(20, Math.min(cardLeft, vw - cw - 20));
+      card.style.top = cardTop + 'px';
+      card.style.left = cardLeft + 'px';
+
+      var ax = Math.max(cardLeft + 16, Math.min(r.left + r.width / 2, cardLeft + cw - 16));
+      arrow.style.opacity = '1';
+      arrow.style.left = (ax - 9) + 'px';
+      if (below) {
+        arrow.style.top = (cardTop - 9) + 'px';
+        arrow.style.borderLeft = '9px solid transparent';
+        arrow.style.borderRight = '9px solid transparent';
+        arrow.style.borderBottom = '9px solid #1a1410';
+        arrow.style.borderTop = '';
       } else {
-        elements.spot.style.opacity = '0';
+        arrow.style.top = (cardTop + ch) + 'px';
+        arrow.style.borderLeft = '9px solid transparent';
+        arrow.style.borderRight = '9px solid transparent';
+        arrow.style.borderTop = '9px solid #1a1410';
+        arrow.style.borderBottom = '';
       }
     } else {
-      elements.spot.style.opacity = '0';
+      dim.style.top = '50%'; dim.style.left = '50%';
+      dim.style.width = '0'; dim.style.height = '0'; dim.style.opacity = '1';
+      arrow.style.opacity = '0';
+      var cw2 = card.offsetWidth || 300, ch2 = card.offsetHeight || 150;
+      card.style.top = (vh / 2 - ch2 / 2) + 'px';
+      card.style.left = (vw / 2 - cw2 / 2) + 'px';
     }
+  }
 
-    // Ligar botões
-    document.getElementById('tk-next').onclick = function() {
-      if (currentStep < STEPS.length - 1) {
-        currentStep++;
-        renderStep(currentStep);
-      } else {
-        closeTour();
+  function render() {
+    var step = STEPS[idx];
+    var last = idx === STEPS.length - 1;
+    var dots = STEPS.map(function (_, i) {
+      return '<span style="display:inline-block;width:6px;height:6px;border-radius:50%;background:' +
+        (i === idx ? '#ff8c42' : '#4a3f35') + ';margin-right:5px"></span>';
+    }).join('');
+    var showNext = step.advance === 'next';
+    card.innerHTML =
+      '<div style="margin-bottom:12px">' + dots + '</div>' +
+      '<h3 style="font-family:Fraunces,Georgia,serif;font-size:19px;font-weight:500;color:#faf6f0;margin:0 0 8px">' + step.title + '</h3>' +
+      '<p style="font-size:14px;color:#a8a39a;line-height:1.6;margin:0 0 18px">' + step.text + '</p>' +
+      '<div style="display:flex;align-items:center;justify-content:space-between;gap:12px">' +
+        '<button id="tk-skip" style="background:transparent;border:none;color:#8a857c;font-size:14px;cursor:pointer;padding:8px 4px;font-family:inherit">Saltar visita</button>' +
+        (showNext || last
+          ? '<button id="tk-next" style="background:#ff8c42;color:#0d0a08;border:none;padding:11px 22px;border-radius:9px;font-size:14px;font-weight:600;cursor:pointer;font-family:inherit">' + (last ? 'Terminar ✓' : 'Próximo →') + '</button>'
+          : '<span style="color:#ff8c42;font-size:13px">Faça a ação para continuar</span>') +
+      '</div>';
+    document.getElementById('tk-skip').onclick = finish;
+    var nx = document.getElementById('tk-next');
+    if (nx) nx.onclick = function () { last ? finish() : go(idx + 1); };
+    place();
+    wireAdvance();
+  }
+
+  function clearAdvance() {
+    if (poll) { clearInterval(poll); poll = null; }
+    if (clickEl && clickFn) { clickEl.removeEventListener('click', clickFn); clickEl = null; clickFn = null; }
+  }
+
+  function wireAdvance() {
+    clearAdvance();
+    var step = STEPS[idx];
+    if (step.advance === 'photos') {
+      poll = setInterval(function () {
+        try { if (typeof state !== 'undefined' && state.photos && state.photos.length > 0) go(idx + 1); } catch (e) {}
+      }, 400);
+    } else if (step.advance === 'click' || step.advance === 'click-end') {
+      var t = document.getElementById(step.target);
+      if (t) {
+        clickEl = t;
+        clickFn = function () {
+          if (step.advance === 'click-end') { setTimeout(finish, 250); }
+          else { setTimeout(function () { go(idx + 1); }, 350); }
+        };
+        t.addEventListener('click', clickFn);
       }
-    };
-    document.getElementById('tk-skip').onclick = closeTour;
-  }
-
-  function closeTour() {
-    if (elements) {
-      if (elements.root && elements.root.parentNode) elements.root.parentNode.removeChild(elements.root);
-      if (elements.spot && elements.spot.parentNode) elements.spot.parentNode.removeChild(elements.spot);
-      elements = null;
     }
-    const styleEl = document.getElementById('tk-tour-style');
-    if (styleEl && styleEl.parentNode) styleEl.parentNode.removeChild(styleEl);
-    try {
-      localStorage.setItem('tuka-tour-seen', 'true');
-    } catch (e) { /* ignore */ }
   }
 
-  function startTour() {
-    // Se já há um tour activo, limpar primeiro
-    const existing = document.getElementById('tk-tour-root');
-    if (existing) existing.remove();
-    const existingSpot = document.getElementById('tk-tour-spot');
-    if (existingSpot) existingSpot.remove();
-
-    elements = buildTour();
-    currentStep = 0;
-    renderStep(0);
+  function go(i) {
+    if (!active || i === idx && i !== 0) { }
+    idx = i;
+    clearAdvance();
+    // dá tempo ao ecrã seguinte para aparecer antes de apontar
+    setTimeout(render, 300);
   }
 
-  // Função global para iniciar
-  window.initTour = function() {
-    let seen = false;
-    try {
-      seen = localStorage.getItem('tuka-tour-seen') === 'true';
-    } catch (e) { /* ignore */ }
+  function loop() { if (!active) return; place(); raf = requestAnimationFrame(loop); }
+
+  function start() {
+    if (active) return;
+    active = true; idx = 0;
+    build();
+    render();
+    raf = requestAnimationFrame(loop);
+  }
+
+  function finish() {
+    active = false;
+    clearAdvance();
+    if (raf) cancelAnimationFrame(raf);
+    [dim, arrow, card].forEach(function (n) { if (n && n.parentNode) n.parentNode.removeChild(n); });
+    dim = card = arrow = null;
+    try { localStorage.setItem('tuka-tour-seen', 'true'); } catch (e) {}
+  }
+
+  window.initTour = function () {
+    var seen = false;
+    try { seen = localStorage.getItem('tuka-tour-seen') === 'true'; } catch (e) {}
     if (seen) return;
-    // Pequeno delay para o DOM estar 100% pronto
-    setTimeout(startTour, 100);
+    setTimeout(start, 600);
   };
-
-  // Função para reabrir manualmente (útil para o botão de ajuda)
-  window.restartTour = function() {
-    try {
-      localStorage.removeItem('tuka-tour-seen');
-    } catch (e) { /* ignore */ }
-    startTour();
+  window.restartTour = function () {
+    try { localStorage.removeItem('tuka-tour-seen'); } catch (e) {}
+    if (!active) start();
   };
 })();
