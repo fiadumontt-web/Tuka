@@ -139,16 +139,16 @@
   }
 
   function showBanner(rec) {
-    var banner = document.getElementById('session-banner');
-    if (!banner) return;
-    var count = document.getElementById('sb-count');
+    var modal = document.getElementById('resume-modal');
+    if (!modal) return;
+    var text = document.getElementById('resume-text');
     var n = (rec.photos || []).length;
-    if (count) count.textContent = '· ' + n + (n === 1 ? ' foto' : ' fotos');
-    banner.hidden = false;
-    var cont = document.getElementById('sb-continue');
-    var disc = document.getElementById('sb-discard');
-    if (cont) cont.onclick = function () { banner.hidden = true; restoreSession(rec); };
-    if (disc) disc.onclick = function () { banner.hidden = true; clearSession(); };
+    if (text) text.textContent = 'Encontrámos ' + n + (n === 1 ? ' foto' : ' fotos') + ' que estava a marcar. Quer continuar de onde parou?';
+    modal.hidden = false;
+    var cont = document.getElementById('resume-continue');
+    var disc = document.getElementById('resume-discard');
+    if (cont) cont.onclick = function () { modal.hidden = true; restoreSession(rec); };
+    if (disc) disc.onclick = function () { modal.hidden = true; clearSession(); };
   }
 
   function initSession() {
@@ -166,6 +166,9 @@
     ['btn-photos-next', 'btn-logo-next', 'btn-position-next', 'btn-logo-back', 'btn-position-back'].forEach(function (id) {
       var b = document.getElementById(id);
       if (b) b.addEventListener('click', function () { setTimeout(maybeSave, 0); });
+    });
+    document.querySelectorAll('a[href^="/pages/"]').forEach(function (a) {
+      a.addEventListener('click', function () { maybeSave(); });
     });
   }
 
