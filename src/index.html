@@ -185,6 +185,25 @@
           </button>
           <div class="limit-counter" id="bg-limit">3 utilizações disponíveis hoje</div>
           <div class="info-tip"><strong>Nota:</strong> Se o logótipo já está em PNG sem fundo, pode pular este passo.</div>
+          <div class="form-group" style="margin-top:18px">
+            <label>Texto junto ao logo (opcional)</label>
+            <input type="text" class="text-input" id="input-logo-text" placeholder="Ex: o nome ou @ da empresa" maxlength="40">
+            <div class="color-palette" id="logo-text-palette" style="margin-top:10px">
+              <button type="button" class="color-tile white-tile active" data-color="#ffffff" title="Branco" style="background:#ffffff"></button>
+              <button type="button" class="color-tile" data-color="#000000" title="Preto" style="background:#000000"></button>
+              <button type="button" class="color-tile" data-color="#ff8c42" title="Laranja" style="background:#ff8c42"></button>
+              <button type="button" class="color-tile" data-color="#ff3b30" title="Vermelho" style="background:#ff3b30"></button>
+              <button type="button" class="color-tile" data-color="#ffd60a" title="Amarelo" style="background:#ffd60a"></button>
+              <button type="button" class="color-tile" data-color="#30d158" title="Verde" style="background:#30d158"></button>
+              <button type="button" class="color-tile" data-color="#0a84ff" title="Azul" style="background:#0a84ff"></button>
+              <button type="button" class="color-tile" data-color="#bf5af2" title="Roxo" style="background:#bf5af2"></button>
+            </div>
+            <div class="mini-toggle" id="logo-text-pos" style="margin-top:10px">
+              <button type="button" data-pos="below" class="active">Abaixo</button>
+              <button type="button" data-pos="right">Ao lado</button>
+            </div>
+            <p class="hint-position" style="margin-top:8px">Escolhe se o texto fica abaixo ou ao lado do logo. Move e cresce junto com ele.</p>
+          </div>
         </div>
       </div>
 
@@ -359,17 +378,18 @@
   </main>
 
   <footer class="app-footer">
-    <a href="/pages/privacidade.html" target="_blank" rel="noopener">Privacidade</a>
+    <a href="/pages/privacidade.html" class="page-link" data-title="Privacidade">Privacidade</a>
     <span>·</span>
-    <a href="/pages/ajuda.html" target="_blank" rel="noopener">Ajuda</a>
+    <a href="/pages/ajuda.html" class="page-link" data-title="Ajuda">Ajuda</a>
     <span>·</span>
-    <a href="/pages/suporte.html" target="_blank" rel="noopener">Suporte</a>
+    <a href="/pages/suporte.html" class="page-link" data-title="Suporte">Suporte</a>
     <span>·</span>
     <a href="https://fiadumont.com/" target="_blank" rel="noopener">© Fiadumont 2026</a>
+    <span class="app-ver">v2.13</span>
   </footer>
 
   <!-- Botão de suporte = link directo para a página de suporte -->
-  <a class="support-fab" href="/pages/suporte.html" target="_blank" rel="noopener" title="Suporte" aria-label="Suporte">
+  <a class="support-fab page-link" href="/pages/suporte.html" data-title="Suporte" title="Suporte" aria-label="Suporte">
     <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
   </a>
 
@@ -385,6 +405,15 @@
     </div>
   </div>
 
+  <!-- Janela de páginas (ajuda/privacidade/suporte) dentro do app -->
+  <div class="page-overlay" id="page-overlay" hidden>
+    <div class="page-overlay-bar">
+      <span id="page-overlay-title">Página</span>
+      <button id="page-overlay-close" aria-label="Fechar">✕</button>
+    </div>
+    <iframe id="page-overlay-frame" title="Conteúdo" src="about:blank"></iframe>
+  </div>
+
   <div class="toast" id="toast" hidden></div>
 
   <script src="/scripts/limits.js"></script>
@@ -398,6 +427,12 @@
   <script src="/scripts/store.js"></script>
   <script>
     if ('serviceWorker' in navigator) {
+      var _refreshing = false;
+      navigator.serviceWorker.addEventListener('controllerchange', function () {
+        if (_refreshing) return;
+        _refreshing = true;
+        window.location.reload();
+      });
       window.addEventListener('load', () => navigator.serviceWorker.register('/sw.js').catch(() => {}));
     }
   </script>
