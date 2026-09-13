@@ -17,7 +17,6 @@
     .hero h2{font-family:var(--font-display);font-size:32px;font-weight:500;line-height:1.2;margin-bottom:8px}
     .hero p{color:var(--text-muted);font-size:15px}
 
-    /* Passos */
     .steps{padding:28px 20px 0}
     .steps h3{font-family:var(--font-display);font-size:20px;font-weight:500;margin-bottom:16px;color:var(--orange)}
     .step-card{background:var(--bg-elevated);border-radius:14px;overflow:hidden;margin-bottom:16px;border:1px solid var(--border)}
@@ -27,7 +26,6 @@
     .step-info p{font-size:13px;color:var(--text-muted);line-height:1.5}
     .step-visual{background:var(--bg-card);padding:16px 18px;border-top:1px solid var(--border)}
 
-    /* Mockup visual de cada ecrã */
     .mockup{background:#0d0a08;border-radius:10px;padding:14px;position:relative;overflow:hidden}
     .mockup-label{font-size:11px;color:#a8a39a;letter-spacing:1px;text-transform:uppercase;margin-bottom:10px}
     .mock-dropzone{border:2px dashed #4a3f35;border-radius:10px;padding:20px;text-align:center;background:#15110d}
@@ -37,16 +35,26 @@
     .mock-photos{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-top:10px}
     .mock-photo{aspect-ratio:1;background:#3d2818;border-radius:6px}
     .mock-btn{background:#ff8c42;color:#0d0a08;border:none;padding:12px;border-radius:8px;font-weight:500;font-size:13px;width:100%;margin-top:12px;font-family:inherit;cursor:default}
-    .mock-tabs{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:12px}
-    .mock-tab{padding:10px;border-radius:7px;font-size:12px;text-align:center;background:#15110d;color:#a8a39a;border:1px solid #2a221c}
+    .mock-tabs{display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;margin-bottom:12px}
+    .mock-tab{padding:9px;border-radius:7px;font-size:12px;text-align:center;background:#15110d;color:#a8a39a;border:1px solid #2a221c}
     .mock-tab.active{background:#ff8c42;color:#0d0a08;font-weight:500;border-color:#ff8c42}
     .mock-logo-row{display:flex;align-items:center;gap:10px;background:#15110d;padding:10px;border-radius:8px;margin-bottom:8px}
     .mock-logo-box{width:44px;height:44px;background:#faf6f0;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:10px;color:#0d0a08;font-weight:700;flex-shrink:0}
     .mock-logo-info{flex:1}
     .mock-logo-info p{font-size:12px;color:#faf6f0;margin-bottom:2px}
     .mock-logo-info small{font-size:10px;color:#a8a39a}
-    .mock-photo-big{aspect-ratio:4/3;background:linear-gradient(135deg,#3d2818,#5c3a25);border-radius:8px;margin-bottom:8px;position:relative;overflow:hidden;display:flex;align-items:flex-end;justify-content:flex-end;padding:8px}
+    .mock-field{background:#15110d;border:1px solid #2a221c;border-radius:8px;padding:9px 11px;font-size:12px;color:#a8a39a;margin-bottom:8px}
+    .mock-photo-big{aspect-ratio:4/3;background:linear-gradient(135deg,#3d2818,#5c3a25);border-radius:8px;margin-bottom:10px;position:relative;overflow:hidden;display:flex;align-items:flex-end;justify-content:flex-end;padding:8px}
     .mock-logo-overlay{background:rgba(250,246,240,0.95);padding:6px 10px;border-radius:6px;font-size:11px;font-weight:700;color:#0d0a08;border:2px dashed #ff8c42}
+    .mock-qp{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+    .mock-qp-box{position:relative;width:66px;height:50px;background:#15110d;border:1px solid #2a221c;border-radius:6px;flex-shrink:0}
+    .mock-qp-box i{position:absolute;width:10px;height:10px;border-radius:50%;border:2px solid #4a3f35;transform:translate(-50%,-50%)}
+    .mock-qp-box i.on{background:#ff8c42;border-color:#ff8c42}
+    .mock-qp small{font-size:11px;color:#a8a39a}
+    .mock-thumbs{display:flex;gap:6px}
+    .mock-thumb{width:34px;height:34px;border-radius:6px;background:#3d2818;position:relative}
+    .mock-thumb.sel{outline:2px solid #ff8c42}
+    .mock-thumb .dot{position:absolute;top:-3px;right:-3px;width:9px;height:9px;border-radius:50%;background:#ff8c42;border:2px solid #0d0a08}
     .mock-progress{background:#15110d;border-radius:8px;padding:16px;text-align:center}
     .mock-progress p{font-size:13px;color:#faf6f0;margin-bottom:8px}
     .mock-bar{background:#2a1f15;height:6px;border-radius:3px;overflow:hidden;margin-bottom:4px}
@@ -54,10 +62,9 @@
     .mock-bar-text{font-size:11px;color:#a8a39a}
     .mock-results{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-bottom:10px}
     .mock-result{aspect-ratio:1;background:#3d2818;border-radius:6px}
-    .arrow-hint{display:flex;align-items:center;gap:6px;margin-top:8px;font-size:12px;color:#ff8c42}
-    .arrow-hint svg{flex-shrink:0}
+    .arrow-hint{display:flex;align-items:flex-start;gap:6px;margin-top:10px;font-size:12px;color:#ff8c42;line-height:1.5}
+    .arrow-hint svg{flex-shrink:0;margin-top:2px}
 
-    /* FAQ */
     .faq{padding:28px 20px 0}
     .faq h3{font-family:var(--font-display);font-size:20px;font-weight:500;margin-bottom:16px;color:var(--orange)}
     details.faq-item{background:var(--bg-elevated);border-radius:12px;border:1px solid var(--border);margin-bottom:10px;overflow:hidden}
@@ -68,7 +75,6 @@
     .faq-body{padding:0 18px 16px;font-size:14px;color:var(--text-muted);line-height:1.7;border-top:1px solid var(--border)}
     .faq-body strong{color:var(--text)}
     .faq-body p{margin-top:12px}
-    .faq-body p:first-child{margin-top:12px}
 
     .contact-box{margin:28px 20px 0;background:var(--bg-elevated);border-radius:14px;padding:20px;border:1px solid var(--border)}
     .contact-box h3{font-family:var(--font-display);font-size:18px;font-weight:500;margin-bottom:6px}
@@ -85,7 +91,7 @@
 
 <div class="hero">
   <h2>Como usar o Tuka</h2>
-  <p>Tudo o que precisas de saber para marcar as tuas fotos.</p>
+  <p>Tudo o que precisa para marcar as suas fotos, passo a passo.</p>
 </div>
 
 <div class="steps">
@@ -95,19 +101,19 @@
     <div class="step-card-header">
       <div class="step-num">1</div>
       <div class="step-info">
-        <h4>Adicionar fotos</h4>
-        <p>Toca na zona laranja e escolhe até 20 fotos dos teus produtos.</p>
+        <h4>Adicionar as fotos</h4>
+        <p>Toque na zona laranja e escolha até 20 fotos dos seus produtos.</p>
       </div>
     </div>
     <div class="step-visual">
       <div class="mockup">
-        <div class="mockup-label">Ecrã 1 — as tuas fotos</div>
+        <div class="mockup-label">Passo 1 — as suas fotos</div>
         <div class="mock-dropzone">
           <div class="icon">
             <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#0d0a08" stroke-width="2.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/></svg>
           </div>
-          <p>Toca para escolher</p>
-          <small>JPG, PNG · até 25MB cada</small>
+          <p>Toque para escolher</p>
+          <small>JPG e PNG · até 10 MB cada</small>
         </div>
         <div class="mock-photos">
           <div class="mock-photo"></div>
@@ -117,7 +123,7 @@
         <button class="mock-btn">Continuar →</button>
         <div class="arrow-hint">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
-          As fotos aparecem em miniaturas. Toca no ✕ para remover alguma.
+          As fotos aparecem em miniaturas. Toque no ✕ para remover alguma.
         </div>
       </div>
     </div>
@@ -127,31 +133,29 @@
     <div class="step-card-header">
       <div class="step-num">2</div>
       <div class="step-info">
-        <h4>Adicionar o logo</h4>
-        <p>Escolhe o logo da empresa em imagem ou escreve o nome.</p>
+        <h4>Escolher o logo</h4>
+        <p>Use uma imagem do logo, ou escreva só o nome. Pode ainda juntar um texto.</p>
       </div>
     </div>
     <div class="step-visual">
       <div class="mockup">
-        <div class="mockup-label">Ecrã 2 — o teu logo</div>
+        <div class="mockup-label">Passo 2 — o seu logo</div>
         <div class="mock-tabs">
-          <div class="mock-tab active">Logo (imagem)</div>
-          <div class="mock-tab">Nome (texto)</div>
+          <div class="mock-tab active">Logótipo</div>
+          <div class="mock-tab">Nome</div>
+          <div class="mock-tab">Favoritos</div>
         </div>
         <div class="mock-logo-row">
           <div class="mock-logo-box">LOGO</div>
           <div class="mock-logo-info">
             <p>logo-empresa.png</p>
-            <small>Pronto para usar</small>
+            <small>★ Guardar nos favoritos</small>
           </div>
         </div>
-        <div style="background:#ff8c421a;border:1px solid #ff8c42;border-radius:8px;padding:10px;font-size:12px;color:#ff8c42;display:flex;align-items:center;gap:8px">
+        <div class="mock-field">Texto junto ao logo (opcional) · abaixo ou ao lado</div>
+        <div class="arrow-hint">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-          Remover fundo do logo (3× por dia)
-        </div>
-        <div class="arrow-hint" style="margin-top:10px">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
-          Podes escolher o formato: original, quadrado ou redondo.
+          Guarde o logo na estrela para o reutilizar. Pode remover o fundo (3× por dia, feito no seu aparelho) e escolher o formato: original, quadrado ou redondo.
         </div>
       </div>
     </div>
@@ -161,19 +165,33 @@
     <div class="step-card-header">
       <div class="step-num">3</div>
       <div class="step-info">
-        <h4>Posicionar o logo</h4>
-        <p>Arrasta com um dedo · Dois dedos para o tamanho.</p>
+        <h4>Colocar o logo</h4>
+        <p>Arraste na foto, ou toque numa das posições rápidas.</p>
       </div>
     </div>
     <div class="step-visual">
       <div class="mockup">
-        <div class="mockup-label">Ecrã 3 — posição do logo</div>
+        <div class="mockup-label">Passo 3 — posição do logo</div>
         <div class="mock-photo-big">
           <div class="mock-logo-overlay">LOGO</div>
         </div>
+        <div class="mock-qp">
+          <div class="mock-qp-box">
+            <i style="left:22%;top:24%"></i><i style="left:78%;top:24%"></i>
+            <i class="on" style="left:50%;top:50%"></i>
+            <i style="left:22%;top:76%"></i><i style="left:78%;top:76%"></i>
+          </div>
+          <small>Posições rápidas: cantos e centro, num toque.</small>
+        </div>
+        <div class="mock-thumbs">
+          <div class="mock-thumb sel"><span class="dot"></span></div>
+          <div class="mock-thumb"></div>
+          <div class="mock-thumb"></div>
+          <div class="mock-thumb"></div>
+        </div>
         <div class="arrow-hint">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
-          Abre "Posição diferente por foto" para personalizar cada foto individualmente.
+          Para uma posição diferente numa foto, toque nela na fila e mova só essa. O ponto laranja marca as que já têm. "Todas as fotos" volta a mover em todas, e "Desfazer alteração" tira a posição própria.
         </div>
       </div>
     </div>
@@ -183,21 +201,21 @@
     <div class="step-card-header">
       <div class="step-num">4</div>
       <div class="step-info">
-        <h4>Processar</h4>
-        <p>O app aplica o logo em todas as fotos automaticamente.</p>
+        <h4>Gerar</h4>
+        <p>O app aplica o logo em todas as fotos de uma vez.</p>
       </div>
     </div>
     <div class="step-visual">
       <div class="mockup">
-        <div class="mockup-label">Ecrã 4 — a processar</div>
+        <div class="mockup-label">Passo 4 — a preparar</div>
         <div class="mock-progress">
           <p>A processar foto 2 de 5</p>
           <div class="mock-bar"><div class="mock-bar-fill"></div></div>
           <div class="mock-bar-text">65%</div>
         </div>
-        <div class="arrow-hint" style="margin-top:10px">
+        <div class="arrow-hint">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
-          Não feches o browser enquanto o app trabalha.
+          Se sair a meio de uma edição, ao voltar o app pergunta se quer continuar o trabalho de onde parou.
         </div>
       </div>
     </div>
@@ -208,21 +226,21 @@
       <div class="step-num">5</div>
       <div class="step-info">
         <h4>Baixar</h4>
-        <p>Toca num botão e todas as fotos ficam no teu telefone.</p>
+        <p>Toque no botão e as fotos ficam no telemóvel.</p>
       </div>
     </div>
     <div class="step-visual">
       <div class="mockup">
-        <div class="mockup-label">Ecrã 5 — baixar</div>
+        <div class="mockup-label">Passo 5 — baixar</div>
         <div class="mock-results">
           <div class="mock-result"></div>
           <div class="mock-result" style="opacity:.8"></div>
           <div class="mock-result" style="opacity:.6"></div>
         </div>
         <button class="mock-btn">Baixar 3 fotos</button>
-        <div class="arrow-hint" style="margin-top:10px">
+        <div class="arrow-hint">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
-          No iPhone: toca e segura em cada imagem → Guardar imagem.
+          Quer mudar algo antes de baixar? Toque em "Continuar a editar" e volte ao posicionamento. No iPhone: toque e segure em cada imagem e escolha Guardar imagem.
         </div>
       </div>
     </div>
@@ -235,58 +253,79 @@
   <details class="faq-item">
     <summary>O app é grátis?</summary>
     <div class="faq-body">
-      <p>Sim, completamente grátis. Podes usar até 20 fotos por sessão e remover o fundo do logo até 3 vezes por dia. Não precisas de criar conta nem introduzir cartão de crédito.</p>
+      <p>Sim, completamente grátis. Pode usar até 20 fotos por sessão e remover o fundo do logo até 3 vezes por dia. Não precisa de criar conta nem introduzir cartão.</p>
     </div>
   </details>
 
   <details class="faq-item">
-    <summary>A remoção de fundo não está a funcionar</summary>
+    <summary>Posso guardar o meu logo para a próxima vez?</summary>
     <div class="faq-body">
-      <p>Isto acontece quando o servidor está ocupado ou a tua internet está instável. Tenta de novo em 30 segundos. Se persistir, verifica se já usaste as 3 vezes de hoje — o contador aparece mesmo por baixo do botão.</p>
-      <p><strong>Dica:</strong> Se o teu logo já está em PNG com fundo transparente, não precisas de usar a remoção.</p>
+      <p>Sim. No passo do logo, toque na estrela <strong>"Guardar nos favoritos"</strong>. Fica guardado no seu aparelho, já pronto a usar. Se removeu o fundo, o favorito fica sem fundo e não gasta o limite do dia seguinte. Da próxima vez, abre logo no separador <strong>Favoritos</strong>.</p>
     </div>
   </details>
 
   <details class="faq-item">
-    <summary>Como guardo as fotos no iPhone?</summary>
+    <summary>Posso pôr texto ao lado do logo?</summary>
     <div class="faq-body">
-      <p>O iPhone não permite guardar automaticamente. Quando tocares em "Baixar fotos", cada imagem vai abrir num ecrã separado. <strong>Toca e segura</strong> na imagem e escolhe <strong>Guardar imagem</strong>. Vai para a tua Galeria de Fotos.</p>
+      <p>Sim, na opção <strong>Logótipo</strong>. Escreva no campo <strong>"Texto junto ao logo"</strong>, escolha a cor, e se fica <strong>abaixo</strong> ou <strong>ao lado</strong>. O texto aparece na foto e move e cresce junto com o logo.</p>
     </div>
   </details>
 
   <details class="faq-item">
     <summary>Posso ter posições diferentes em cada foto?</summary>
     <div class="faq-body">
-      <p>Sim. No passo 3, toca em <strong>"Posição diferente por foto"</strong> para abrir o painel avançado. Toca numa foto para a seleccionar — o ponto laranja indica que tem posição própria. Arrasta o logo para onde quiseres. Para voltar ao modo geral, toca em "← Editar todas".</p>
+      <p>Sim. No passo 3, toque numa foto na fila para lhe dar uma posição própria e mova só essa. O <strong>ponto laranja</strong> marca as fotos que já têm posição própria. Use as <strong>posições rápidas</strong> para os cantos ou o centro. O botão <strong>"Todas as fotos"</strong> volta a mover o logo em todas ao mesmo tempo, e <strong>"Desfazer alteração"</strong> tira a posição própria de uma foto.</p>
+    </div>
+  </details>
+
+  <details class="faq-item">
+    <summary>Perdi o meu trabalho ao sair do app?</summary>
+    <div class="faq-body">
+      <p>Não. Se estava a meio de uma edição e saiu, ao voltar o app mostra um aviso para <strong>continuar de onde parou</strong> ou começar de novo. O rascunho fica só no seu aparelho e apaga-se quando gera as fotos ou ao fim de alguns dias.</p>
+    </div>
+  </details>
+
+  <details class="faq-item">
+    <summary>A remoção de fundo não está a funcionar</summary>
+    <div class="faq-body">
+      <p>A remoção de fundo é feita <strong>no seu próprio aparelho</strong>. Na primeira vez precisa de internet para carregar o modelo; depois disso funciona sem servidor. Em telemóveis mais fracos pode demorar um pouco. Se já usou as 3 vezes de hoje, o contador aparece por baixo do botão.</p>
+      <p><strong>Dica:</strong> Se o seu logo já está em PNG com fundo transparente, não precisa de usar a remoção.</p>
+    </div>
+  </details>
+
+  <details class="faq-item">
+    <summary>Como guardo as fotos no iPhone?</summary>
+    <div class="faq-body">
+      <p>O iPhone não permite guardar automaticamente. Quando tocar em "Baixar fotos", cada imagem abre num ecrã separado. <strong>Toque e segure</strong> na imagem e escolha <strong>Guardar imagem</strong>. Vai para a sua Galeria.</p>
     </div>
   </details>
 
   <details class="faq-item">
     <summary>Que formatos de foto são suportados?</summary>
     <div class="faq-body">
-      <p>JPG e PNG, até 25MB cada. As fotos saem no mesmo formato em que entraram — JPG sai como JPG, PNG sai como PNG. A qualidade de saída é de 95%.</p>
-    </div>
-  </details>
-
-  <details class="faq-item">
-    <summary>Posso instalar o Tuka como aplicação no meu telemóvel?</summary>
-    <div class="faq-body">
-      <p>De momento, o Tuka está disponível apenas como site. A versão para instalar directamente no telemóvel estará disponível em breve. Poderá encontrá-la na Google Play Store quando for lançada.</p>
-      <p>Enquanto isso, pode abrir o Tuka no browser do seu telemóvel e utilizá-lo como qualquer outro site.</p>
+      <p>JPG e PNG, até 10 MB cada. As fotos saem no mesmo formato em que entraram, com alta qualidade.</p>
     </div>
   </details>
 
   <details class="faq-item">
     <summary>As minhas fotos ficam guardadas em algum lado?</summary>
     <div class="faq-body">
-      <p>Não. As tuas fotos de produtos nunca saem do teu dispositivo. Só o logo passa pelo servidor (para a remoção de fundo) e é apagado imediatamente após o processamento. Consulta a nossa <a href="/pages/privacidade.html">Política de Privacidade</a> para mais detalhes.</p>
+      <p>Não. Tudo acontece no seu aparelho, incluindo a remoção de fundo do logo. Nenhuma foto e nenhum logo é enviado para um servidor. Consulte a nossa <a href="/pages/privacidade.html">Política de Privacidade</a> para mais detalhes.</p>
     </div>
   </details>
 
   <details class="faq-item">
     <summary>O app funciona sem internet?</summary>
     <div class="faq-body">
-      <p>Sim, depois da primeira utilização. Podes adicionar fotos, colocar o logo e baixar tudo sem internet. A única função que precisa de ligação é a remoção de fundo do logo.</p>
+      <p>Sim, depois da primeira utilização. Pode adicionar fotos, colocar o logo, posicionar e baixar tudo sem internet. A remoção de fundo do logo precisa de ligação só na primeira vez, para carregar o modelo.</p>
+    </div>
+  </details>
+
+  <details class="faq-item">
+    <summary>Posso instalar o Tuka no telemóvel?</summary>
+    <div class="faq-body">
+      <p><strong>Android:</strong> o Tuka está na Google Play. Pode instalar por lá, ou abrir no navegador e adicionar ao ecrã inicial pelo menu do navegador.</p>
+      <p><strong>iPhone:</strong> no iPhone o Tuka funciona pela web, no navegador. Não está na App Store. Para o ter à mão, abra o Tuka no Safari, toque no botão de partilha e escolha "Adicionar ao ecrã principal".</p>
     </div>
   </details>
 </div>
